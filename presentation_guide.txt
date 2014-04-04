@@ -1,0 +1,13 @@
+-> objectivo 
+	o trabalho consiste no desenvolvimento de um parser para a linguagem dot (utilizada para representar grafos), com o objectivo de criar uma representação gráfica recorrendo a apis como o jgrapht podendo ser executadas operações sobre este grafo e finalmente a exportação do grafo final para um ficheiro dotty
+
+-> estado atual
+	neste momento encontra-se em estado próximo do final a análise lexical e sintatica, sendo necessário ainda algum desenvolvimento na análise semantica, e execução de testes mais exaustivos
+
+->próximos passos
+	após a conclusão da análise semantica será necessário implementar a api do jgrapht, para a obtenção da representação gráfica intermédia, de seguida será implementado o exportador do grafo para ficheiros do tipo dotty.
+	Finalmente irá ser implementado funções que permitem realizar operações sobre os grafos representados, como calculo do caminho mais curto, identificacao de ciclos, etc...
+
+-> problemas
+	até ao momento não existiram grandes problemas no desenolvimento do projeto, apesar de algumas ambiguidades da linguagem dot, que ja foram resolvidas
+		->dar exemplo da sintaxe com ambiguidade??
