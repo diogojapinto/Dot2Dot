@@ -32,6 +32,10 @@ public interface Dot2DotParserConstants {
   int LETTER = 16;
   /** RegularExpression Id. */
   int DIGIT = 17;
+  /** RegularExpression Id. */
+  int STRING = 18;
+  /** RegularExpression Id. */
+  int HTML = 19;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -56,6 +60,8 @@ public interface Dot2DotParserConstants {
     "<ID>",
     "<LETTER>",
     "<DIGIT>",
+    "<STRING>",
+    "<HTML>",
     "\"{\"",
     "\"}\"",
     "\";\"",

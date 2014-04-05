@@ -9,7 +9,7 @@ options
 }
 
 PARSER_BEGIN(Dot2DotParser)
-package mieic.comp;
+package mieic.comp.parsing.old;
 import java.io.*;
 
 public class Dot2DotParser
