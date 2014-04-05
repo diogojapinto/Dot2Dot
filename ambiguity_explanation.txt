@@ -6,3 +6,5 @@ em stmt(), temos node_stmt, edge_stmt, a igualdade a poderem começar todos pelo
 |  subgraph() (edge_stmt())?
 
 .... depois explico isto melhor... cheira-me que isto ainda esta mal
+
+JA ESTA BOM
