@@ -1,0 +1,8 @@
+original:
+
+em stmt(), temos node_stmt, edge_stmt, a igualdade a poderem começar todos pelo token <ID>, e edge_stmt e subgraph a poderem começar por <SUBGRAPH>. Visto isto, modificou-se a gramatica para:
+
+< ID > ( edge_stmt() | (port())? node_stmt())
+|  subgraph() (edge_stmt())?
+
+.... depois explico isto melhor... cheira-me que isto ainda esta mal
