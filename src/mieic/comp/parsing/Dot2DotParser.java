@@ -3,7 +3,7 @@ package mieic.comp.parsing;
 import java.io.*;
 
 public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants, Dot2DotParserConstants {/*@bgen(jjtree)*/
-  protected JJTDot2DotParserState jjtree = new JJTDot2DotParserState();public static void main(String args [])
+  protected JJTDot2DotParserState jjtree = new JJTDot2DotParserState();public static void parse(String args [])
   {
     Dot2DotParser parser = null;
     if (args.length == 0)
@@ -111,18 +111,21 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
         jj_la1[2] = jj_gen;
         ;
       }
-      jj_consume_token(18);
+      jj_consume_token(20);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case GRAPH:
+      case NODE:
+      case EDGE:
       case SUBGRAPH:
       case ID:
-      case 18:
+      case 20:
         stmt_list();
         break;
       default:
         jj_la1[3] = jj_gen;
         ;
       }
-      jj_consume_token(19);
+      jj_consume_token(21);
     } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -152,17 +155,20 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
     try {
       stmt();
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case 20:
-        jj_consume_token(20);
+      case 22:
+        jj_consume_token(22);
         break;
       default:
         jj_la1[4] = jj_gen;
         ;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case GRAPH:
+      case NODE:
+      case EDGE:
       case SUBGRAPH:
       case ID:
-      case 18:
+      case 20:
         stmt_list();
         break;
       default:
@@ -197,60 +203,75 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
   jjtree.openNodeScope(jjtn000);
     try {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case GRAPH:
+      case NODE:
+      case EDGE:
+        attr_stmt();
+        break;
       case ID:
         jj_consume_token(ID);
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case EDGEOP:
           edge_stmt();
           break;
+        case 26:
+          a_list_aux();
+          break;
         default:
-          jj_la1[7] = jj_gen;
+          jj_la1[8] = jj_gen;
           switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-          case 21:
+          case 23:
             port();
             break;
           default:
             jj_la1[6] = jj_gen;
             ;
           }
-          node_stmt();
+          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+          case 24:
+            node_stmt();
+            break;
+          default:
+            jj_la1[7] = jj_gen;
+            ;
+          }
         }
         break;
       case SUBGRAPH:
-      case 18:
+      case 20:
         subgraph();
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case EDGEOP:
           edge_stmt();
           break;
         default:
-          jj_la1[8] = jj_gen;
+          jj_la1[9] = jj_gen;
           ;
         }
         break;
       default:
-        jj_la1[9] = jj_gen;
+        jj_la1[10] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
     } catch (Throwable jjte000) {
-          if (jjtc000) {
-            jjtree.clearNodeScope(jjtn000);
-            jjtc000 = false;
-          } else {
-            jjtree.popNode();
-          }
-          if (jjte000 instanceof RuntimeException) {
-            {if (true) throw (RuntimeException)jjte000;}
-          }
-          if (jjte000 instanceof ParseException) {
-            {if (true) throw (ParseException)jjte000;}
-          }
-          {if (true) throw (Error)jjte000;}
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      {if (true) throw (RuntimeException)jjte000;}
+    }
+    if (jjte000 instanceof ParseException) {
+      {if (true) throw (ParseException)jjte000;}
+    }
+    {if (true) throw (Error)jjte000;}
     } finally {
-          if (jjtc000) {
-            jjtree.closeNodeScope(jjtn000, true);
-          }
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
     }
   }
 
@@ -260,14 +281,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case 22:
-        attr_list();
-        break;
-      default:
-        jj_la1[10] = jj_gen;
-        ;
-      }
+      attr_list();
     } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -297,7 +311,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
     try {
       jj_consume_token(ID);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case 21:
+      case 23:
         port();
         break;
       default:
@@ -331,13 +345,13 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      jj_consume_token(21);
+      jj_consume_token(23);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case ID:
         jj_consume_token(ID);
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case 21:
-          jj_consume_token(21);
+        case 23:
+          jj_consume_token(23);
           jj_consume_token(DIRECTION);
           break;
         default:
@@ -366,7 +380,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
-      jj_consume_token(22);
+      jj_consume_token(24);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case ID:
         a_list();
@@ -375,9 +389,9 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
         jj_la1[14] = jj_gen;
         ;
       }
-      jj_consume_token(23);
+      jj_consume_token(25);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case 22:
+      case 24:
         attr_list();
         break;
       default:
@@ -412,17 +426,17 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
   jjtree.openNodeScope(jjtn000);
     try {
       jj_consume_token(ID);
-      jj_consume_token(24);
+      jj_consume_token(26);
       jj_consume_token(ID);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case 20:
-      case 25:
+      case 22:
+      case 27:
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case 20:
-          jj_consume_token(20);
+        case 22:
+          jj_consume_token(22);
           break;
-        case 25:
-          jj_consume_token(25);
+        case 27:
+          jj_consume_token(27);
           break;
         default:
           jj_la1[16] = jj_gen;
@@ -463,6 +477,44 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
     }
   }
 
+  final public void a_list_aux() throws ParseException {
+ /*@bgen(jjtree) a_list_aux */
+  ASTa_list_aux jjtn000 = new ASTa_list_aux(JJTA_LIST_AUX);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+    try {
+      jj_consume_token(26);
+      jj_consume_token(ID);
+      jj_consume_token(22);
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case 26:
+        a_list_aux();
+        break;
+      default:
+        jj_la1[19] = jj_gen;
+        ;
+      }
+    } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      {if (true) throw (RuntimeException)jjte000;}
+    }
+    if (jjte000 instanceof ParseException) {
+      {if (true) throw (ParseException)jjte000;}
+    }
+    {if (true) throw (Error)jjte000;}
+    } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+    }
+  }
+
   final public void edge_stmt() throws ParseException {
  /*@bgen(jjtree) edge_stmt */
   ASTedge_stmt jjtn000 = new ASTedge_stmt(JJTEDGE_STMT);
@@ -471,11 +523,11 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
     try {
       edgeRHS();
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case 22:
+      case 24:
         attr_list();
         break;
       default:
-        jj_la1[19] = jj_gen;
+        jj_la1[20] = jj_gen;
         ;
       }
     } catch (Throwable jjte000) {
@@ -511,11 +563,11 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
         node_id();
         break;
       case SUBGRAPH:
-      case 18:
+      case 20:
         subgraph();
         break;
       default:
-        jj_la1[20] = jj_gen;
+        jj_la1[21] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -524,7 +576,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
         edgeRHS();
         break;
       default:
-        jj_la1[21] = jj_gen;
+        jj_la1[22] = jj_gen;
         ;
       }
     } catch (Throwable jjte000) {
@@ -568,7 +620,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
         attr_list();
         break;
       default:
-        jj_la1[22] = jj_gen;
+        jj_la1[23] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -607,17 +659,17 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
           jj_consume_token(ID);
           break;
         default:
-          jj_la1[23] = jj_gen;
+          jj_la1[24] = jj_gen;
           ;
         }
         break;
       default:
-        jj_la1[24] = jj_gen;
+        jj_la1[25] = jj_gen;
         ;
       }
-      jj_consume_token(18);
+      jj_consume_token(20);
       stmt_list();
-      jj_consume_token(19);
+      jj_consume_token(21);
     } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -648,13 +700,13 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[25];
+  final private int[] jj_la1 = new int[26];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x80,0x300,0x8000,0x49000,0x100000,0x49000,0x200000,0x4000,0x4000,0x49000,0x400000,0x200000,0x200000,0xa000,0x8000,0x400000,0x2100000,0x2100000,0x8000,0x400000,0x49000,0x4000,0xd00,0x8000,0x1000,};
+      jj_la1_0 = new int[] {0x80,0x300,0x8000,0x109d00,0x400000,0x109d00,0x800000,0x1000000,0x4004000,0x4000,0x109d00,0x800000,0x800000,0xa000,0x8000,0x1000000,0x8400000,0x8400000,0x8000,0x4000000,0x1000000,0x109000,0x4000,0xd00,0x8000,0x1000,};
    }
 
   /** Constructor with InputStream. */
@@ -668,7 +720,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -683,7 +735,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -693,7 +745,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -704,7 +756,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -713,7 +765,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -723,7 +775,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -774,12 +826,12 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[26];
+    boolean[] la1tokens = new boolean[28];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 25; i++) {
+    for (int i = 0; i < 26; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -788,7 +840,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
         }
       }
     }
-    for (int i = 0; i < 26; i++) {
+    for (int i = 0; i < 28; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
