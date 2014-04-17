@@ -12,11 +12,10 @@ public interface Dot2DotParserTreeConstants
   public int JJTPORT = 6;
   public int JJTATTR_LIST = 7;
   public int JJTA_LIST = 8;
-  public int JJTA_LIST_AUX = 9;
-  public int JJTEDGE_STMT = 10;
-  public int JJTEDGERHS = 11;
-  public int JJTATTR_STMT = 12;
-  public int JJTSUBGRAPH = 13;
+  public int JJTEDGE_STMT = 9;
+  public int JJTEDGERHS = 10;
+  public int JJTATTR_STMT = 11;
+  public int JJTSUBGRAPH = 12;
 
 
   public String[] jjtNodeName = {
@@ -29,11 +28,10 @@ public interface Dot2DotParserTreeConstants
     "port",
     "attr_list",
     "a_list",
-    "a_list_aux",
     "edge_stmt",
     "edgeRHS",
     "attr_stmt",
     "subgraph",
   };
 }
-/* JavaCC - OriginalChecksum=552189705394c1d0463566091f11f2ed (do not edit this line) */
+/* JavaCC - OriginalChecksum=69fde0ca56b39c3c76710e9359ba3241 (do not edit this line) */

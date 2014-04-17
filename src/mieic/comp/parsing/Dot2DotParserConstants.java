@@ -11,31 +11,33 @@ public interface Dot2DotParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int STRICT = 7;
+  int STRICT = 8;
   /** RegularExpression Id. */
-  int GRAPH = 8;
+  int GRAPH = 9;
   /** RegularExpression Id. */
-  int DIGRAPH = 9;
+  int DIGRAPH = 10;
   /** RegularExpression Id. */
-  int NODE = 10;
+  int NODE = 11;
   /** RegularExpression Id. */
-  int EDGE = 11;
+  int EDGE = 12;
   /** RegularExpression Id. */
-  int SUBGRAPH = 12;
+  int SUBGRAPH = 13;
   /** RegularExpression Id. */
-  int DIRECTION = 13;
+  int DIRECTION = 14;
   /** RegularExpression Id. */
-  int EDGEOP = 14;
+  int EDGEOP = 15;
   /** RegularExpression Id. */
-  int ID = 15;
+  int ID = 16;
   /** RegularExpression Id. */
-  int LETTER = 16;
+  int LETTER = 17;
   /** RegularExpression Id. */
-  int DIGIT = 17;
+  int DIGIT = 18;
   /** RegularExpression Id. */
-  int STRING = 18;
+  int NUMERAL = 19;
   /** RegularExpression Id. */
-  int HTML = 19;
+  int STRING = 20;
+  /** RegularExpression Id. */
+  int HTML = 21;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -45,10 +47,11 @@ public interface Dot2DotParserConstants {
     "<EOF>",
     "\" \"",
     "\"\\t\"",
+    "<token of kind 3>",
     "\"\\n\"",
     "\"\\r\"",
-    "<token of kind 5>",
     "<token of kind 6>",
+    "<token of kind 7>",
     "<STRICT>",
     "<GRAPH>",
     "<DIGRAPH>",
@@ -60,15 +63,16 @@ public interface Dot2DotParserConstants {
     "<ID>",
     "<LETTER>",
     "<DIGIT>",
+    "<NUMERAL>",
     "<STRING>",
     "<HTML>",
     "\"{\"",
     "\"}\"",
     "\";\"",
+    "\"=\"",
     "\":\"",
     "\"[\"",
     "\"]\"",
-    "\"=\"",
     "\",\"",
   };
 
