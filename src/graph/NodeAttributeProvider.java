@@ -11,5 +11,4 @@ public class NodeAttributeProvider implements ComponentAttributeProvider<Node> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
