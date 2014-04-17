@@ -33,302 +33,4 @@
       jjtree.closeNodeScope(jjtn000, true);
     }
   }
-/*@egen*/}void graph() :{/*@bgen(jjtree) graph */
-  SimpleNode jjtn000 = new SimpleNode(JJTGRAPH);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) graph */
-  try {
-/*@egen*/  (< STRICT >)?  (    < GRAPH >  | < DIGRAPH >  )  (< ID >)? "{"  (    (      stmt_list()    )?  )  "}"/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}void stmt_list() :{/*@bgen(jjtree) stmt_list */
-  SimpleNode jjtn000 = new SimpleNode(JJTSTMT_LIST);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) stmt_list */
-  try {
-/*@egen*/  stmt() (";")?  (    stmt_list()  )?/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}void stmt() :{/*@bgen(jjtree) stmt */
-  SimpleNode jjtn000 = new SimpleNode(JJTSTMT);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) stmt */
-  try {
-/*@egen*/  attr_stmt()| < ID >  (    edge_stmt()  | "=" < ID >  |    (      port()    )?    (      node_stmt()    )?  )| subgraph()  (    edge_stmt()  )?/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}void node_stmt() :{/*@bgen(jjtree) node_stmt */
-  SimpleNode jjtn000 = new SimpleNode(JJTNODE_STMT);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) node_stmt */
-  try {
-/*@egen*/  attr_list()/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}void node_id() :{/*@bgen(jjtree) node_id */
-  SimpleNode jjtn000 = new SimpleNode(JJTNODE_ID);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) node_id */
-  try {
-/*@egen*/  < ID >  (    port()  )?/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}void port() :{/*@bgen(jjtree) port */
-  SimpleNode jjtn000 = new SimpleNode(JJTPORT);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) port */
-  try {
-/*@egen*/  ":"  (    < ID > (":" < DIRECTION >)?  | < DIRECTION >  )/*@bgen(jjtree)*/
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}void attr_list() :{/*@bgen(jjtree) attr_list */
-  SimpleNode jjtn000 = new SimpleNode(JJTATTR_LIST);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) attr_list */
-  try {
-/*@egen*/  "["  (    a_list()  )?  "]"  (    attr_list()  )?/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}void a_list() :{/*@bgen(jjtree) a_list */
-  SimpleNode jjtn000 = new SimpleNode(JJTA_LIST);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) a_list */
-  try {
-/*@egen*/  < ID > "=" < ID >  (    ";"  | ","  )?  (    a_list()  )?/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}void edge_stmt() :{/*@bgen(jjtree) edge_stmt */
-  SimpleNode jjtn000 = new SimpleNode(JJTEDGE_STMT);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) edge_stmt */
-  try {
-/*@egen*/  edgeRHS()  (    attr_list()  )?/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}void edgeRHS() :{/*@bgen(jjtree) edgeRHS */
-  SimpleNode jjtn000 = new SimpleNode(JJTEDGERHS);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) edgeRHS */
-  try {
-/*@egen*/  < EDGEOP >  (    node_id()  | subgraph()  )  (    edgeRHS()  )?/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}void attr_stmt() :{/*@bgen(jjtree) attr_stmt */
-  SimpleNode jjtn000 = new SimpleNode(JJTATTR_STMT);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) attr_stmt */
-  try {
-/*@egen*/  < GRAPH > attr_list()| < NODE > attr_list()| < EDGE > attr_list()/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}void subgraph() :{/*@bgen(jjtree) subgraph */
-  SimpleNode jjtn000 = new SimpleNode(JJTSUBGRAPH);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}{/*@bgen(jjtree) subgraph */
-  try {
-/*@egen*/  (    < SUBGRAPH > (< ID >)?  )?  "{" stmt_list() "}"/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
-/*@egen*/}
+/*@egen*/}void graph()      :{}{  (< STRICT >)?  (    < GRAPH >  | < DIGRAPH >  )  (< ID >)? "{"  (    (      stmt_list()    )?  )  "}"}void stmt_list()      :{}{  stmt() (";")?  (    stmt_list()  )?}void stmt()      :{}{  attr_stmt()| < ID >  (    edge_stmt()  | "=" < ID >  |    (      port()    )?    (      node_stmt()    )?  )| subgraph()  (    edge_stmt()  )?}void node_stmt()      :{}{  attr_list()}void node_id()      :{}{  < ID >  (    port()  )?}void port()      :{}{  ":"  (    < ID > (":" < DIRECTION >)?  | < DIRECTION >  )}void attr_list()      :{}{  "["  (    a_list()  )?  "]"  (    attr_list()  )?}void a_list()      :{}{  < ID > "=" < ID >  (    ";"  | ","  )?  (    a_list()  )?}void edge_stmt()      :{}{  edgeRHS()  (    attr_list()  )?}void edgeRHS()      :{}{  < EDGEOP >  (    node_id()  | subgraph()  )  (    edgeRHS()  )?}void attr_stmt()      :{}{  < GRAPH > attr_list()| < NODE > attr_list()| < EDGE > attr_list()}void subgraph()       :{}{  (    < SUBGRAPH > (< ID >)?  )?  "{" stmt_list() "}"}
