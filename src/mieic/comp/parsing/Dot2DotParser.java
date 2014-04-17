@@ -3,7 +3,7 @@ package mieic.comp.parsing;
 import java.io.*;
 
 public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants, Dot2DotParserConstants {/*@bgen(jjtree)*/
-  protected JJTDot2DotParserState jjtree = new JJTDot2DotParserState();public static void parse(String args [])
+  protected JJTDot2DotParserState jjtree = new JJTDot2DotParserState();public static boolean parse(String args [])
   {
     Dot2DotParser parser = null;
     if (args.length == 0)
@@ -37,11 +37,13 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
       /*parser.CompilationUnit();      System.out.println("Dot2Dot:  Java program parsed successfully.");*/
       SimpleNode root = parser.Start();
       root.dump("");
+      return true;
     }
     catch (ParseException e)
     {
       System.out.println(e.getMessage());
       System.out.println("Dot2Dot:  Encountered errors during parse.");
+      return false;
     }
   }
 
