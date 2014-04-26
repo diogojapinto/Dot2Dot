@@ -1,4 +1,4 @@
-package graph;
+package mieic.comp.graph;
 
 import java.util.Map;
 

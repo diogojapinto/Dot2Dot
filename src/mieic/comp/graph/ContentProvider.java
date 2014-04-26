@@ -1,4 +1,4 @@
-package graph;
+package mieic.comp.graph;
 
 public class ContentProvider {
 	private NodeIDProvider nodeIDProvider;

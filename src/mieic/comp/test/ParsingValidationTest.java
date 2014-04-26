@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 
-import mieic.comp.parsing.Dot2DotParser;
+import mieic.comp.parser.Dot2DotParser;
 
 import org.junit.Test;
 
