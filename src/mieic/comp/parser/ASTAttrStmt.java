@@ -2,15 +2,28 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mieic.comp.parser;
 
-public
-class ASTAttrStmt extends SimpleNode {
-  public ASTAttrStmt(int id) {
-    super(id);
-  }
+public class ASTAttrStmt extends SimpleNode {
 
-  public ASTAttrStmt(Dot2DotParser p, int id) {
-    super(p, id);
-  }
+	public enum attrsScope {
+		GRAPH, NODE, EDGE
+	};
+	
+	private attrsScope scope;
+
+	public ASTAttrStmt(int id) {
+		super(id);
+	}
+
+	public ASTAttrStmt(Dot2DotParser p, int id) {
+		super(p, id);
+	}
+	
+	public void setScope(attrsScope scope) {
+		this.scope = scope;
+	}
 
 }
-/* JavaCC - OriginalChecksum=7330b35c3be4b120ece2283996b69ff8 (do not edit this line) */
+/*
+ * JavaCC - OriginalChecksum=7330b35c3be4b120ece2283996b69ff8 (do not edit this
+ * line)
+ */

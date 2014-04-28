@@ -4,9 +4,13 @@ package mieic.comp.parser;
 
 public class ASTGraph extends SimpleNode {
 
+	public enum graphType {DIGRAPH, GRAPH};
+
 	private boolean isStrict = false;
-	private String id;
+	private String graphId;
+	private graphType type;
 	
+
 	public ASTGraph(int id) {
 		super(id);
 	}
@@ -14,9 +18,39 @@ public class ASTGraph extends SimpleNode {
 	public ASTGraph(Dot2DotParser p, int id) {
 		super(p, id);
 	}
-	
+
+	@Override
+	public void dump(String prefix) {
+		String typeStr = "";
+		switch(type) {
+		case GRAPH:
+			typeStr = "graph";
+			break;
+		case DIGRAPH:
+			typeStr = "digraph";
+			break;
+		}
+		System.out.println(toString(prefix) + ": " + typeStr + " " + graphId);
+		if (children != null) {
+			for (int i = 0; i < children.length; ++i) {
+				SimpleNode n = (SimpleNode) children[i];
+				if (n != null) {
+					n.dump(prefix + " ");
+				}
+			}
+		}
+	}
+
 	public void setStrictness(boolean isStrict) {
 		this.isStrict = isStrict;
+	}
+
+	public void setId(String id) {
+		graphId = id;
+	}
+	
+	public void setGraphType(graphType type) {
+		this.type = type;
 	}
 
 }

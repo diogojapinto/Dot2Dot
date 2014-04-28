@@ -3,29 +3,27 @@ package mieic.comp.parser;
 
 public interface Dot2DotParserTreeConstants
 {
-  public int JJTVOID = 0;
+  public int JJTSTART = 0;
   public int JJTGRAPH = 1;
-  public int JJTDIGRAPH = 2;
+  public int JJTVOID = 2;
   public int JJTATTRSTMT = 3;
   public int JJTEDGESTMT = 4;
   public int JJTASSIGNSTMT = 5;
   public int JJTNODESTMT = 6;
   public int JJTSUBGRAPH = 7;
   public int JJTATTRIBUTE = 8;
-  public int JJTEDGEREL = 9;
 
 
   public String[] jjtNodeName = {
-    "void",
+    "Start",
     "Graph",
-    "Digraph",
+    "void",
     "AttrStmt",
     "EdgeStmt",
     "AssignStmt",
     "NodeStmt",
     "Subgraph",
     "Attribute",
-    "EdgeRel",
   };
 }
-/* JavaCC - OriginalChecksum=19e13dc13dc14af15c8dfa98555e1799 (do not edit this line) */
+/* JavaCC - OriginalChecksum=15a76c93ea28ffd4aedb165e2806277d (do not edit this line) */
