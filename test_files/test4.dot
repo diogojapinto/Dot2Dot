@@ -1,0 +1,32 @@
+digraph simple_demo{
+graph [rankdir = "LR"];
+subgraph cluster_0
+{
+	Package [label="Package", shape="component", fontname="Arial"];
+	input [label="input", fontname="Arial"];
+}
+	PropertiesComponent0 [fontname = "Arial" style="invisible" shape = "folder" label =<<table border="1" cellborder="0" cellpadding="3" bgcolor="grey"><tr><td bgcolor="blue" align="center" colspan="2"><font color="grey">Properties</font></td></tr></table>> ];
+	Package->PropertiesComponent0
+
+subgraph cluster_1
+{
+	Compress [label="Compress", shape="component", fontname="Arial"];
+	output [label="output", fontname="Arial"];
+}
+	PropertiesComponent1 [fontname = "Arial" style="invisible" shape = "folder" label =<<table border="1" cellborder="0" cellpadding="3" bgcolor="grey"><tr><td bgcolor="blue" align="center" colspan="2"><font color="grey">Properties</font></td></tr></table>> ];
+	Compress->PropertiesComponent1
+
+
+
+subgraph cluster_Pipe
+{
+	Pipe [label="Pipe", shape="folder", fontname="Arial"];
+	source [label="source", fontname="Arial"];
+	sink [label="sink", fontname="Arial"];
+}
+	PropertiesConnector0 [fontname = "Arial" style="invisible" shape = "folder" label =<<table border="1" cellborder="0" cellpadding="3" bgcolor="grey"><tr><td bgcolor="blue" align="center" colspan="2"><font color="grey">Properties</font></td></tr><tr><td align="center">bufferSize : integer = 0</td></tr></table>> ];
+	Pipe->PropertiesConnector0
+
+	input->source;
+	output->sink;
+}
