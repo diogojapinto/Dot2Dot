@@ -3,7 +3,7 @@
 package mieic.comp.parser;
 
 public
-class ASTDigraph extends SimpleNode {
+class ASTDigraph extends ASTGraph {
   public ASTDigraph(int id) {
     super(id);
   }
