@@ -21,6 +21,19 @@ public class ASTAttrStmt extends SimpleNode {
 	public void setScope(attrsScope scope) {
 		this.scope = scope;
 	}
+	
+	@Override
+	public void dump(String prefix) {
+		System.out.println(toString(prefix) + ": " + scope);
+		if (children != null) {
+			for (int i = 0; i < children.length; ++i) {
+				SimpleNode n = (SimpleNode) children[i];
+				if (n != null) {
+					n.dump(prefix + " ");
+				}
+			}
+		}
+	}
 
 }
 /*

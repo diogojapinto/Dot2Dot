@@ -3,7 +3,7 @@
 package mieic.comp.parser;
 
 public
-class ASTSubgraph extends SimpleNode {
+class ASTSubgraph extends ASTGraph {
   public ASTSubgraph(int id) {
     super(id);
   }
@@ -11,6 +11,5 @@ class ASTSubgraph extends SimpleNode {
   public ASTSubgraph(Dot2DotParser p, int id) {
     super(p, id);
   }
-
 }
 /* JavaCC - OriginalChecksum=6365c108b5d70b76d06f5f96e859225a (do not edit this line) */

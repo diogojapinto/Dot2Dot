@@ -25,19 +25,21 @@ public interface Dot2DotParserConstants {
   /** RegularExpression Id. */
   int DIRECTION = 15;
   /** RegularExpression Id. */
-  int EDGEOP = 16;
+  int DIR_EDGEOP = 16;
   /** RegularExpression Id. */
-  int ID = 17;
+  int UNDIR_EDGEOP = 17;
   /** RegularExpression Id. */
-  int LETTER = 18;
+  int ID = 18;
   /** RegularExpression Id. */
-  int DIGIT = 19;
+  int LETTER = 19;
   /** RegularExpression Id. */
-  int NUMERAL = 20;
+  int DIGIT = 20;
   /** RegularExpression Id. */
-  int STRING = 21;
+  int NUMERAL = 21;
   /** RegularExpression Id. */
-  int HTML = 22;
+  int STRING = 22;
+  /** RegularExpression Id. */
+  int HTML = 23;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -60,7 +62,8 @@ public interface Dot2DotParserConstants {
     "<EDGE>",
     "<SUBGRAPH>",
     "<DIRECTION>",
-    "<EDGEOP>",
+    "\"->\"",
+    "\"--\"",
     "<ID>",
     "<LETTER>",
     "<DIGIT>",

@@ -6,24 +6,28 @@ public interface Dot2DotParserTreeConstants
   public int JJTSTART = 0;
   public int JJTGRAPH = 1;
   public int JJTVOID = 2;
-  public int JJTATTRSTMT = 3;
-  public int JJTEDGESTMT = 4;
-  public int JJTASSIGNSTMT = 5;
-  public int JJTNODESTMT = 6;
-  public int JJTSUBGRAPH = 7;
-  public int JJTATTRIBUTE = 8;
+  public int JJTASSIGNSTMT = 3;
+  public int JJTNODESTMT = 4;
+  public int JJTNODEINFO = 5;
+  public int JJTPORT = 6;
+  public int JJTATTRIBUTE = 7;
+  public int JJTEDGESTMT = 8;
+  public int JJTATTRSTMT = 9;
+  public int JJTSUBGRAPH = 10;
 
 
   public String[] jjtNodeName = {
     "Start",
     "Graph",
     "void",
-    "AttrStmt",
-    "EdgeStmt",
     "AssignStmt",
     "NodeStmt",
-    "Subgraph",
+    "NodeInfo",
+    "Port",
     "Attribute",
+    "EdgeStmt",
+    "AttrStmt",
+    "Subgraph",
   };
 }
-/* JavaCC - OriginalChecksum=15a76c93ea28ffd4aedb165e2806277d (do not edit this line) */
+/* JavaCC - OriginalChecksum=4608780712892a200682ae9609a1d27e (do not edit this line) */

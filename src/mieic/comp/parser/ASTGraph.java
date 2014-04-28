@@ -6,9 +6,12 @@ public class ASTGraph extends SimpleNode {
 
 	public enum graphType {DIGRAPH, GRAPH};
 
-	private boolean isStrict = false;
+	/*
+	 * static so the subgraphs also have this attribute correctly setted
+	 */
+	private static boolean isStrict = false;
 	private String graphId;
-	private graphType type;
+	private static graphType type;
 	
 
 	public ASTGraph(int id) {
@@ -41,16 +44,16 @@ public class ASTGraph extends SimpleNode {
 		}
 	}
 
-	public void setStrictness(boolean isStrict) {
-		this.isStrict = isStrict;
+	public static void setStrictness(boolean isStrict) {
+		ASTGraph.isStrict = isStrict;
 	}
 
 	public void setId(String id) {
 		graphId = id;
 	}
 	
-	public void setGraphType(graphType type) {
-		this.type = type;
+	public static void setGraphType(graphType type) {
+		ASTGraph.type = type;
 	}
 
 }

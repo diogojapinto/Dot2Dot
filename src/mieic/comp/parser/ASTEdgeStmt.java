@@ -2,15 +2,45 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mieic.comp.parser;
 
-public
-class ASTEdgeStmt extends SimpleNode {
-  public ASTEdgeStmt(int id) {
-    super(id);
-  }
+public class ASTEdgeStmt extends SimpleNode {
 
-  public ASTEdgeStmt(Dot2DotParser p, int id) {
-    super(p, id);
-  }
+	private ASTGraph.graphType connector;
+
+	public ASTEdgeStmt(int id) {
+		super(id);
+	}
+
+	public ASTEdgeStmt(Dot2DotParser p, int id) {
+		super(p, id);
+	}
+
+	public void setEdgeType(ASTGraph.graphType connector) {
+		this.connector = connector;
+	}
+
+	public void dump(String prefix) {
+		String type = "";
+		switch (connector) {
+		case DIGRAPH:
+			type = "directed";
+			break;
+		case GRAPH:
+			type = "undirected";
+			break;
+		}
+		System.out.println(toString(prefix) + ": " + type);
+		if (children != null) {
+			for (int i = 0; i < children.length; ++i) {
+				SimpleNode n = (SimpleNode) children[i];
+				if (n != null) {
+					n.dump(prefix + " ");
+				}
+			}
+		}
+	}
 
 }
-/* JavaCC - OriginalChecksum=bdf12f94379a26f2ff0cb75bcb9c5373 (do not edit this line) */
+/*
+ * JavaCC - OriginalChecksum=bdf12f94379a26f2ff0cb75bcb9c5373 (do not edit this
+ * line)
+ */

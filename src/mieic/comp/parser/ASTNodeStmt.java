@@ -20,16 +20,16 @@ public class ASTNodeStmt extends SimpleNode {
 	
 	@Override
 	public void dump(String prefix) {
-	    System.out.println(toString(prefix) + ": " + nodeId);
-	    if (children != null) {
-	      for (int i = 0; i < children.length; ++i) {
-	        SimpleNode n = (SimpleNode)children[i];
-	        if (n != null) {
-	          n.dump(prefix + " ");
-	        }
-	      }
-	    }
-	  }
+		System.out.println(toString(prefix) + ": " + nodeId);
+		if (children != null) {
+			for (int i = 0; i < children.length; ++i) {
+				SimpleNode n = (SimpleNode) children[i];
+				if (n != null) {
+					n.dump(prefix + " ");
+				}
+			}
+		}
+	}
 
 }
 /*

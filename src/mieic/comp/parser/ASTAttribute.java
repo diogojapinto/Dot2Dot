@@ -2,15 +2,38 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mieic.comp.parser;
 
-public
-class ASTAttribute extends SimpleNode {
-  public ASTAttribute(int id) {
-    super(id);
-  }
+public class ASTAttribute extends SimpleNode {
+	private String key;
+	private String value;
+	
+	public ASTAttribute(int id) {
+		super(id);
+	}
 
-  public ASTAttribute(Dot2DotParser p, int id) {
-    super(p, id);
-  }
+	public ASTAttribute(Dot2DotParser p, int id) {
+		super(p, id);
+	}
+	
+	public void setAttrParams(String key, String value) {
+		this.key = key;
+		this.value = value;
+	}
+	
+	@Override
+	public void dump(String prefix) {
+		System.out.println(toString(prefix) + ": " + key + "->" + value);
+		if (children != null) {
+			for (int i = 0; i < children.length; ++i) {
+				SimpleNode n = (SimpleNode) children[i];
+				if (n != null) {
+					n.dump(prefix + " ");
+				}
+			}
+		}
+	}
 
 }
-/* JavaCC - OriginalChecksum=ac77e1af8721bd70f881345a7b9f1c45 (do not edit this line) */
+/*
+ * JavaCC - OriginalChecksum=ac77e1af8721bd70f881345a7b9f1c45 (do not edit this
+ * line)
+ */
