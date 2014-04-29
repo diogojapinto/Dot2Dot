@@ -1,9 +1,8 @@
-graph G {
+digraph G {
  // This is a single line comment.
  /* This is a
     multiple line
     comment. */
- # Lines like this are also ignored.
  main -> parse -> execute;
  main -> init;
  main -> cleanup;
