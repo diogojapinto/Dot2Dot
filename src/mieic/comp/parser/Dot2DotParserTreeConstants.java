@@ -7,13 +7,14 @@ public interface Dot2DotParserTreeConstants
   public int JJTGRAPH = 1;
   public int JJTVOID = 2;
   public int JJTASSIGNSTMT = 3;
-  public int JJTNODESTMT = 4;
+  public int JJTIDSTMT = 4;
   public int JJTNODEINFO = 5;
-  public int JJTPORT = 6;
-  public int JJTATTRIBUTE = 7;
-  public int JJTEDGESTMT = 8;
-  public int JJTATTRSTMT = 9;
-  public int JJTSUBGRAPH = 10;
+  public int JJTNODESTMT = 6;
+  public int JJTPORT = 7;
+  public int JJTATTRIBUTE = 8;
+  public int JJTEDGESTMT = 9;
+  public int JJTATTRSTMT = 10;
+  public int JJTSUBGRAPH = 11;
 
 
   public String[] jjtNodeName = {
@@ -21,8 +22,9 @@ public interface Dot2DotParserTreeConstants
     "Graph",
     "void",
     "AssignStmt",
-    "NodeStmt",
+    "IDStmt",
     "NodeInfo",
+    "NodeStmt",
     "Port",
     "Attribute",
     "EdgeStmt",
@@ -30,4 +32,4 @@ public interface Dot2DotParserTreeConstants
     "Subgraph",
   };
 }
-/* JavaCC - OriginalChecksum=4608780712892a200682ae9609a1d27e (do not edit this line) */
+/* JavaCC - OriginalChecksum=bb7735a66ec91b6b5b01bed1c0eb6928 (do not edit this line) */

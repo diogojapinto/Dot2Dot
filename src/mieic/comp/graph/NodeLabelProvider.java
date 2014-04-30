@@ -5,19 +5,19 @@ import java.util.Map;
 
 import org.jgrapht.ext.VertexNameProvider;
 
-public class NodeLabelProvider implements VertexNameProvider<Node> {
-	private Map<Node, String> labels;
+public class NodeLabelProvider implements VertexNameProvider<Vertex> {
+	private Map<Vertex, String> labels;
 
 	public NodeLabelProvider() {
-		labels = new HashMap<Node, String>();
+		labels = new HashMap<Vertex, String>();
 	}
 
 	@Override
-	public String getVertexName(Node node) {
+	public String getVertexName(Vertex node) {
 		return labels.get(node);
 	}
 
-	public boolean setNodeLabel(Node node, String label) {
+	public boolean setNodeLabel(Vertex node, String label) {
 		if (labels.get(node) != null) {
 			return false;
 		} else {

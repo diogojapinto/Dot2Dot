@@ -2,6 +2,8 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mieic.comp.parser;
 
+import mieic.comp.graph.Vertex;
+
 public class ASTGraph extends SimpleNode {
 
 	public enum graphType {DIGRAPH, GRAPH};
@@ -54,6 +56,21 @@ public class ASTGraph extends SimpleNode {
 	
 	public static void setGraphType(graphType type) {
 		ASTGraph.type = type;
+	}
+
+	
+	public void parse() {
+		for(int i = 0; i < children.length; i++) {
+			Node currNode = children[i];
+			if (currNode instanceof ASTIDStmt) {
+				Node nextNode = children[++i];
+				if (nextNode instanceof ASTEdgeStmt) {
+					Vertex v = new Vertex(((ASTIDStmt) currNode).getId());
+				} else if (nextNode instanceof ASTNodeInfo) {
+					
+				}
+			}
+		}
 	}
 
 }

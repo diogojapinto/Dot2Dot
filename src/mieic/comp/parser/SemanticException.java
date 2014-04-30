@@ -9,6 +9,6 @@ public class SemanticException extends Exception {
 	}
 	
 	public String toString() {
-		return messg;
+		return "Semantic exception: " + messg;
 	}
 }

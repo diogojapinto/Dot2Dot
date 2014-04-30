@@ -250,15 +250,15 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
   }
 
   final public void simple_node_id() throws ParseException {
- /*@bgen(jjtree) NodeStmt */
-  ASTNodeStmt jjtn000 = new ASTNodeStmt(JJTNODESTMT);
+ /*@bgen(jjtree) IDStmt */
+  ASTIDStmt jjtn000 = new ASTIDStmt(JJTIDSTMT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);Token t;
     try {
       t = jj_consume_token(ID);
     jjtree.closeNodeScope(jjtn000, true);
     jjtc000 = false;
-    jjtn000.setNodeId(t.image);
+    jjtn000.setId(t.image);
     } finally {
     if (jjtc000) {
       jjtree.closeNodeScope(jjtn000, true);
@@ -311,9 +311,9 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
 
   final public void node_id() throws ParseException {
  /*@bgen(jjtree) NodeStmt */
- ASTNodeStmt jjtn000 = new ASTNodeStmt(JJTNODESTMT);
- boolean jjtc000 = true;
- jjtree.openNodeScope(jjtn000);Token t;
+  ASTNodeStmt jjtn000 = new ASTNodeStmt(JJTNODESTMT);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);Token t;
     try {
       t = jj_consume_token(ID);
     jjtn000.setNodeId(t.image);
@@ -642,7 +642,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x200,0xc00,0x40000,0x1047400,0x4000000,0x1047400,0x8030000,0x30000,0x1047400,0x10000000,0x20000000,0x10000000,0x10000000,0x48000,0x40000,0x20000000,0x84000000,0x84000000,0x20000000,0x30000,0x1044000,0x30000,0x3400,0x40000,0x4000,};
+      jj_la1_0 = new int[] {0x200,0xc00,0x20000,0x1027400,0x4000000,0x1027400,0x8018000,0x18000,0x1027400,0x10000000,0x20000000,0x10000000,0x10000000,0x820000,0x20000,0x20000000,0x84000000,0x84000000,0x20000000,0x18000,0x1024000,0x18000,0x3400,0x20000,0x4000,};
    }
 
   /** Constructor with InputStream. */

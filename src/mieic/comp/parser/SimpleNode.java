@@ -2,78 +2,110 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mieic.comp.parser;
 
-public
-class SimpleNode implements Node {
+public class SimpleNode implements Node {
 
-  protected Node parent;
-  protected Node[] children;
-  protected int id;
-  protected Object value;
-  protected Dot2DotParser parser;
+	protected Node parent;
+	protected Node[] children;
+	protected int id;
+	protected Object value;
+	protected Dot2DotParser parser;
 
-  public SimpleNode(int i) {
-    id = i;
-  }
+	public SimpleNode(int i) {
+		id = i;
+	}
 
-  public SimpleNode(Dot2DotParser p, int i) {
-    this(i);
-    parser = p;
-  }
+	public SimpleNode(Dot2DotParser p, int i) {
+		this(i);
+		parser = p;
+	}
 
-  public void jjtOpen() {
-  }
+	public void jjtOpen() {
+	}
 
-  public void jjtClose() {
-  }
+	public void jjtClose() {
+	}
 
-  public void jjtSetParent(Node n) { parent = n; }
-  public Node jjtGetParent() { return parent; }
+	public void jjtSetParent(Node n) {
+		parent = n;
+	}
 
-  public void jjtAddChild(Node n, int i) {
-    if (children == null) {
-      children = new Node[i + 1];
-    } else if (i >= children.length) {
-      Node c[] = new Node[i + 1];
-      System.arraycopy(children, 0, c, 0, children.length);
-      children = c;
-    }
-    children[i] = n;
-  }
+	public Node jjtGetParent() {
+		return parent;
+	}
 
-  public Node jjtGetChild(int i) {
-    return children[i];
-  }
+	public void jjtAddChild(Node n, int i) {
+		if (children == null) {
+			children = new Node[i + 1];
+		} else if (i >= children.length) {
+			Node c[] = new Node[i + 1];
+			System.arraycopy(children, 0, c, 0, children.length);
+			children = c;
+		}
+		children[i] = n;
+	}
 
-  public int jjtGetNumChildren() {
-    return (children == null) ? 0 : children.length;
-  }
+	public Node jjtGetChild(int i) {
+		return children[i];
+	}
 
-  public void jjtSetValue(Object value) { this.value = value; }
-  public Object jjtGetValue() { return value; }
+	public int jjtGetNumChildren() {
+		return (children == null) ? 0 : children.length;
+	}
 
-  /* You can override these two methods in subclasses of SimpleNode to
-     customize the way the node appears when the tree is dumped.  If
-     your output uses more than one line you should override
-     toString(String), otherwise overriding toString() is probably all
-     you need to do. */
+	public void jjtSetValue(Object value) {
+		this.value = value;
+	}
 
-  public String toString() { return Dot2DotParserTreeConstants.jjtNodeName[id]; }
-  public String toString(String prefix) { return prefix + toString(); }
+	public Object jjtGetValue() {
+		return value;
+	}
 
-  /* Override this method if you want to customize how the node dumps
-     out its children. */
+	/*
+	 * You can override these two methods in subclasses of SimpleNode to
+	 * customize the way the node appears when the tree is dumped. If your
+	 * output uses more than one line you should override toString(String),
+	 * otherwise overriding toString() is probably all you need to do.
+	 */
 
-  public void dump(String prefix) {
-    System.out.println(toString(prefix));
-    if (children != null) {
-      for (int i = 0; i < children.length; ++i) {
-        SimpleNode n = (SimpleNode)children[i];
-        if (n != null) {
-          n.dump(prefix + " ");
-        }
-      }
-    }
-  }
+	public String toString() {
+		return Dot2DotParserTreeConstants.jjtNodeName[id];
+	}
+
+	public String toString(String prefix) {
+		return prefix + toString();
+	}
+
+	/*
+	 * Override this method if you want to customize how the node dumps out its
+	 * children.
+	 */
+
+	public void dump(String prefix) {
+		System.out.println(toString(prefix));
+		if (children != null) {
+			for (int i = 0; i < children.length; ++i) {
+				SimpleNode n = (SimpleNode) children[i];
+				if (n != null) {
+					n.dump(prefix + " ");
+				}
+			}
+		}
+	}
+
+	public void parseChildren() throws SemanticException {
+		if (children.length > 1) {
+			throw new SemanticException("Too many graphs defined");
+		}
+		
+		if (children[0] instanceof ASTGraph) {
+			((ASTGraph)children[0]).parse();
+ 		} else {
+ 			throw new SemanticException("First node should be a graph");
+ 		}
+	}
 }
 
-/* JavaCC - OriginalChecksum=3d40f3ce5738ab6140399e3891fe0ade (do not edit this line) */
+/*
+ * JavaCC - OriginalChecksum=3d40f3ce5738ab6140399e3891fe0ade (do not edit this
+ * line)
+ */
