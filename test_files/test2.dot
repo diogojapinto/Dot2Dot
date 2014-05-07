@@ -5,7 +5,7 @@ digraph G {
  parse -> execute;
  main -> init [style=dotted];
  main -> cleanup;
- execute -> { make_string; printf}
+ execute -> { make_string; {coiso -> coisa}; printf }
  init -> make_string;
  edge [color=red]; // so is this
  main -> printf [style=bold,label="100 times"];

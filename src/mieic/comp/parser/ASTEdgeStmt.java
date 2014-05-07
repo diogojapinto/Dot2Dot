@@ -2,9 +2,17 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mieic.comp.parser;
 
+import mieic.comp.graph.AttributeAlreadyDefinedException;
+import mieic.comp.graph.Edge;
+import mieic.comp.graph.Graph;
+import mieic.comp.graph.InexistentVertexException;
+import mieic.comp.graph.StrictIncoherenceException;
+import mieic.comp.graph.Subgraph;
+import mieic.comp.graph.Vertex;
+
 public class ASTEdgeStmt extends SimpleNode {
 
-	private ASTGraph.graphType connector;
+	private ASTGraph.GraphType connector;
 
 	public ASTEdgeStmt(int id) {
 		super(id);
@@ -14,7 +22,7 @@ public class ASTEdgeStmt extends SimpleNode {
 		super(p, id);
 	}
 
-	public void setEdgeType(ASTGraph.graphType connector) {
+	public void setEdgeType(ASTGraph.GraphType connector) {
 		this.connector = connector;
 	}
 
@@ -39,6 +47,63 @@ public class ASTEdgeStmt extends SimpleNode {
 		}
 	}
 
+	public <T> void parse(Graph graph, T source)
+			throws AttributeAlreadyDefinedException, SemanticException {
+
+		if (connector == graph.getType()) {
+			throw new SemanticException("Invalid connector in edge statement");
+		}
+
+		if (!(source instanceof Vertex || source instanceof Subgraph)) {
+			throw new SemanticException("Invalid edge source");
+		}
+
+		Edge edge = null;
+
+		Node node = children[0];
+		if (node instanceof ASTNodeStmt) {
+			Vertex vertex = new Vertex(((ASTNodeStmt) node).getNodeId());
+			vertex = graph.addVertex(vertex);
+			edge = new Edge(source, vertex);
+
+			// parse next edge
+			if (children.length > 1) {
+				Node nextNode = children[1];
+				if (nextNode instanceof ASTEdgeStmt) {
+					((ASTEdgeStmt) nextNode).parse(graph, vertex);
+				}
+			}
+
+		} else if (node instanceof ASTSubgraph) {
+			Subgraph subgraph = new Subgraph(((ASTNodeStmt) node).getNodeId(),
+					graph);
+			
+			((ASTSubgraph)node).parse(graph);
+			
+			subgraph = graph.addSubgraph(subgraph);
+			edge = new Edge(source, subgraph);
+
+			// parse next edge
+			if (children.length > 1) {
+				Node nextNode = children[1];
+				if (nextNode instanceof ASTEdgeStmt) {
+					((ASTEdgeStmt) nextNode).parse(graph, subgraph);
+				}
+			}
+		}
+
+		try {
+			try {
+				graph.addEdge(edge);
+			} catch (StrictIncoherenceException e) {
+				throw new SemanticException(
+						"Strict graph does not verify the strictness property");
+			}
+		} catch (InexistentVertexException e) {
+			e.printStackTrace();
+		}
+
+	}
 }
 /*
  * JavaCC - OriginalChecksum=bdf12f94379a26f2ff0cb75bcb9c5373 (do not edit this

@@ -15,7 +15,7 @@ public class ASTIDStmt extends SimpleNode {
 	}
 
 	public void setId(String id) {
-		id = id;
+		this.id = id;
 	}
 	
 	public String getId() {

@@ -98,7 +98,7 @@ public class SimpleNode implements Node {
 		}
 		
 		if (children[0] instanceof ASTGraph) {
-			((ASTGraph)children[0]).parse();
+			((ASTGraph)children[0]).parse(null);
  		} else {
  			throw new SemanticException("First node should be a graph");
  		}

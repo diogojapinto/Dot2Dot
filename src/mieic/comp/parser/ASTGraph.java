@@ -2,32 +2,38 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mieic.comp.parser;
 
+import mieic.comp.graph.AttributeAlreadyDefinedException;
+import mieic.comp.graph.Graph;
+import mieic.comp.graph.Subgraph;
 import mieic.comp.graph.Vertex;
 
 public class ASTGraph extends SimpleNode {
 
-	public enum graphType {DIGRAPH, GRAPH};
+	public enum GraphType {
+		DIGRAPH, GRAPH
+	};
 
 	/*
 	 * static so the subgraphs also have this attribute correctly setted
 	 */
 	private static boolean isStrict = false;
 	private String graphId;
-	private static graphType type;
-	
+	private static GraphType type;
 
 	public ASTGraph(int id) {
 		super(id);
+		graphId = null;
 	}
 
 	public ASTGraph(Dot2DotParser p, int id) {
 		super(p, id);
+		graphId = null;
 	}
 
 	@Override
 	public void dump(String prefix) {
 		String typeStr = "";
-		switch(type) {
+		switch (type) {
 		case GRAPH:
 			typeStr = "graph";
 			break;
@@ -53,24 +59,71 @@ public class ASTGraph extends SimpleNode {
 	public void setId(String id) {
 		graphId = id;
 	}
-	
-	public static void setGraphType(graphType type) {
+
+	public static void setGraphType(GraphType type) {
 		ASTGraph.type = type;
 	}
 
-	
-	public void parse() {
-		for(int i = 0; i < children.length; i++) {
+	public Graph parse(Graph parentGraph) throws SemanticException {
+		// TODO: save the attributes accordingly
+		Graph graph;
+
+		if (parentGraph == null) {
+			graph = new Graph(graphId, type, isStrict);
+		} else {
+			graph = new Subgraph(graphId, parentGraph);
+		}
+
+		for (int i = 0; i < children.length; i++) {
 			Node currNode = children[i];
 			if (currNode instanceof ASTIDStmt) {
-				Node nextNode = children[++i];
-				if (nextNode instanceof ASTEdgeStmt) {
-					Vertex v = new Vertex(((ASTIDStmt) currNode).getId());
-				} else if (nextNode instanceof ASTNodeInfo) {
-					
+				if (++i < children.length) {
+					Node nextNode = children[i];
+					if (nextNode instanceof ASTEdgeStmt) {
+						try {
+							Vertex v = new Vertex(
+									((ASTIDStmt) currNode).getId());
+
+							v = graph.addVertex(v);
+
+							((ASTEdgeStmt) nextNode).parse(graph, v);
+
+						} catch (AttributeAlreadyDefinedException e) {
+							e.printStackTrace();
+						}
+					} else if (nextNode instanceof ASTNodeInfo) {
+						try {
+							Vertex v = new Vertex(
+									((ASTIDStmt) currNode).getId());
+						} catch (AttributeAlreadyDefinedException e) {
+							e.printStackTrace();
+						}
+					}
 				}
+			} else if (currNode instanceof ASTSubgraph) {
+
+				Subgraph subgraph = (Subgraph) ((ASTSubgraph) currNode)
+						.parse(graph);
+
+				graph.addSubgraph(subgraph);
+
+				if (++i < children.length) {
+					Node nextNode = children[i];
+					if (nextNode instanceof ASTEdgeStmt) {
+
+						try {
+							((ASTEdgeStmt) nextNode).parse(graph, subgraph);
+						} catch (AttributeAlreadyDefinedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			} else {
+				throw new SemanticException(
+						"Invalid statement: expecting an ID or subgraph");
 			}
 		}
+		return graph;
 	}
 
 }

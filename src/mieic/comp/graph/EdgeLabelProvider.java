@@ -6,18 +6,29 @@ import java.util.Map;
 import org.jgrapht.ext.EdgeNameProvider;
 
 public class EdgeLabelProvider implements EdgeNameProvider<Edge> {
+	
+	private static EdgeLabelProvider instance = null;
+
+	public static EdgeLabelProvider getInstance() {
+		if (instance == null) {
+			instance = new EdgeLabelProvider();
+		}
+		return instance;
+	}
+	
 	private Map<Edge, String> labels;
 
-	public EdgeLabelProvider() {
+	private EdgeLabelProvider() {
 		labels = new HashMap<Edge, String>();
 	}
 
-	public boolean setEdgeLabel(Edge edge, String id) {
+	public void setEdgeLabel(Edge edge, String id) throws AttributeAlreadyDefinedException {
 		if (labels.get(edge) != null) {
-			return false;
+			String prevVal = labels.get(edge);
+			labels.put(edge, id);
+			throw new AttributeAlreadyDefinedException("label", prevVal, id);
 		} else {
 			labels.put(edge, id);
-			return true;
 		}
 	}
 	

@@ -36,6 +36,13 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
     {
       SimpleNode root = parser.Start();
       root.dump("");
+      try {
+        root.parseChildren();
+      } catch(SemanticException e) {
+                System.err.println(e);
+                System.exit(1);
+      }
+
       return true;
     }
     catch (ParseException e)
@@ -97,11 +104,11 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case GRAPH:
         jj_consume_token(GRAPH);
-      jjtn000.setGraphType(ASTGraph.graphType.GRAPH);
+      jjtn000.setGraphType(ASTGraph.GraphType.GRAPH);
         break;
       case DIGRAPH:
         jj_consume_token(DIGRAPH);
-      jjtn000.setGraphType(ASTGraph.graphType.DIGRAPH);
+      jjtn000.setGraphType(ASTGraph.GraphType.DIGRAPH);
         break;
       default:
         jj_la1[1] = jj_gen;
@@ -472,11 +479,11 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case DIR_EDGEOP:
         jj_consume_token(DIR_EDGEOP);
-      jjtn000.setEdgeType(ASTGraph.graphType.DIGRAPH);
+      jjtn000.setEdgeType(ASTGraph.GraphType.DIGRAPH);
         break;
       case UNDIR_EDGEOP:
         jj_consume_token(UNDIR_EDGEOP);
-      jjtn000.setEdgeType(ASTGraph.graphType.GRAPH);
+      jjtn000.setEdgeType(ASTGraph.GraphType.GRAPH);
         break;
       default:
         jj_la1[19] = jj_gen;

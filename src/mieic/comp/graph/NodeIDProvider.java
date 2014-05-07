@@ -6,9 +6,19 @@ import java.util.Map;
 import org.jgrapht.ext.VertexNameProvider;
 
 public class NodeIDProvider implements VertexNameProvider<Vertex> {
+	
+	private static NodeIDProvider instance = null;
+	
+	public static NodeIDProvider getInstance() {
+		if (instance == null) {
+			instance = new NodeIDProvider();
+		}
+		return instance;
+	}
+	
 	private Map<Vertex, String> ids;
 
-	public NodeIDProvider() {
+	private NodeIDProvider() {
 		ids = new HashMap<Vertex, String>();
 	}
 
@@ -17,12 +27,13 @@ public class NodeIDProvider implements VertexNameProvider<Vertex> {
 		return ids.get(node);
 	}
 
-	public boolean setNodeLabel(Vertex node, String id) {
+	public void setNodeId(Vertex node, String id) throws AttributeAlreadyDefinedException {
 		if (ids.get(node) != null) {
-			return false;
+			String prevVal = ids.get(node);
+			ids.put(node, id);
+			throw new AttributeAlreadyDefinedException("node id", prevVal, id);
 		} else {
 			ids.put(node, id);
-			return true;
 		}
 	}
 }

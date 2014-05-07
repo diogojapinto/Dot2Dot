@@ -18,6 +18,10 @@ public class ASTNodeStmt extends SimpleNode {
 		nodeId = id;
 	}
 	
+	public String getNodeId() {
+		return nodeId;
+	}
+	
 	@Override
 	public void dump(String prefix) {
 		System.out.println(toString(prefix) + ": " + nodeId);
