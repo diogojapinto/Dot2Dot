@@ -2,6 +2,8 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mieic.comp.parser;
 
+import mieic.comp.graph.Vertex;
+
 public
 class ASTNodeInfo extends SimpleNode {
   public ASTNodeInfo(int id) {
@@ -10,6 +12,16 @@ class ASTNodeInfo extends SimpleNode {
 
   public ASTNodeInfo(Dot2DotParser p, int id) {
     super(p, id);
+  }
+  
+  public void parse(Vertex vertex) {
+	  for (Node n: children) {
+		  if (n instanceof ASTPort) {
+			  // TODO
+		  } else if (n instanceof ASTAttribute) {
+			  // TODO
+		  }
+	  }
   }
 
 }

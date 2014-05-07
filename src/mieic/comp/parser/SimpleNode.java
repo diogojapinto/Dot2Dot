@@ -2,6 +2,8 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mieic.comp.parser;
 
+import mieic.comp.graph.Graph;
+
 public class SimpleNode implements Node {
 
 	protected Node parent;
@@ -92,13 +94,13 @@ public class SimpleNode implements Node {
 		}
 	}
 
-	public void parseChildren() throws SemanticException {
+	public Graph parseChildren() throws SemanticException {
 		if (children.length > 1) {
 			throw new SemanticException("Too many graphs defined");
 		}
 		
 		if (children[0] instanceof ASTGraph) {
-			((ASTGraph)children[0]).parse(null);
+			return ((ASTGraph)children[0]).parse(null);
  		} else {
  			throw new SemanticException("First node should be a graph");
  		}

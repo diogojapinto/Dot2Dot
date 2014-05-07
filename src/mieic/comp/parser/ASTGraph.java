@@ -98,6 +98,25 @@ public class ASTGraph extends SimpleNode {
 						} catch (AttributeAlreadyDefinedException e) {
 							e.printStackTrace();
 						}
+					} else if (nextNode instanceof ASTAssignStmt) {
+						((ASTAssignStmt)nextNode).parse(graph, ((ASTIDStmt)currNode).getId());
+					} else if (nextNode instanceof ASTNodeInfo) {
+						try {
+							Vertex v = new Vertex(
+									((ASTIDStmt) currNode).getId());
+							((ASTNodeInfo)nextNode).parse(v);
+						} catch (AttributeAlreadyDefinedException e) {
+							e.printStackTrace();
+						}
+					}
+				} else {
+					Vertex v;
+					try {
+						v = new Vertex(
+								((ASTIDStmt) currNode).getId());
+						v = graph.addVertex(v);
+					} catch (AttributeAlreadyDefinedException e) {
+						e.printStackTrace();
 					}
 				}
 			} else if (currNode instanceof ASTSubgraph) {
@@ -118,6 +137,8 @@ public class ASTGraph extends SimpleNode {
 						}
 					}
 				}
+			} else if (currNode instanceof ASTAttrStmt) {
+				
 			} else {
 				throw new SemanticException(
 						"Invalid statement: expecting an ID or subgraph");

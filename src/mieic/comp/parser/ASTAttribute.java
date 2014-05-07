@@ -5,7 +5,7 @@ package mieic.comp.parser;
 public class ASTAttribute extends SimpleNode {
 	private String key;
 	private String value;
-	
+
 	public ASTAttribute(int id) {
 		super(id);
 	}
@@ -13,12 +13,12 @@ public class ASTAttribute extends SimpleNode {
 	public ASTAttribute(Dot2DotParser p, int id) {
 		super(p, id);
 	}
-	
+
 	public void setAttrParams(String key, String value) {
 		this.key = key;
 		this.value = value;
 	}
-	
+
 	@Override
 	public void dump(String prefix) {
 		System.out.println(toString(prefix) + ": " + key + "->" + value);
@@ -30,6 +30,10 @@ public class ASTAttribute extends SimpleNode {
 				}
 			}
 		}
+	}
+
+	public String[] getAttrParams() {
+		return new String[] { key, value };
 	}
 
 }

@@ -64,7 +64,7 @@ public class ASTEdgeStmt extends SimpleNode {
 		if (node instanceof ASTNodeStmt) {
 			Vertex vertex = new Vertex(((ASTNodeStmt) node).getNodeId());
 			vertex = graph.addVertex(vertex);
-			edge = new Edge(source, vertex);
+			edge = new Edge(source, vertex, connector);
 
 			// parse next edge
 			if (children.length > 1) {
@@ -81,7 +81,7 @@ public class ASTEdgeStmt extends SimpleNode {
 			((ASTSubgraph)node).parse(graph);
 			
 			subgraph = graph.addSubgraph(subgraph);
-			edge = new Edge(source, subgraph);
+			edge = new Edge(source, subgraph, connector);
 
 			// parse next edge
 			if (children.length > 1) {

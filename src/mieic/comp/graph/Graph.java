@@ -6,6 +6,8 @@ import java.util.HashMap;
 import mieic.comp.parser.ASTGraph.GraphType;
 
 public class Graph {
+	
+	public enum AttrScope {GRAPH, NODE, EDGE, OTHER};
 
 	private GraphType type;
 
@@ -14,11 +16,19 @@ public class Graph {
 	private ArrayList<Edge> edges;
 	private String name;
 	private boolean isStrict;
+	
+	private HashMap<AttrScope, HashMap<String, String>> attributes;
 
 	public Graph(String name, GraphType type, boolean strictness) {
 		nodes = new HashMap<>();
 		edges = new ArrayList<>();
 		subgraphs = new ArrayList<>();
+		attributes = new HashMap<>();
+
+		attributes.put(AttrScope.GRAPH, new HashMap<String, String>());
+		attributes.put(AttrScope.NODE, new HashMap<String, String>());
+		attributes.put(AttrScope.EDGE, new HashMap<String, String>());
+		attributes.put(AttrScope.OTHER, new HashMap<String, String>());
 
 		this.name = name;
 		this.type = type;
@@ -197,4 +207,15 @@ public class Graph {
 		return allNodes;
 	}
 
+	public void setAttribute(AttrScope scope, String key, String value) throws AttributeAlreadyDefinedException {
+		
+		String prevVal = attributes.get(scope).get(key);
+		if (prevVal == null) {
+			attributes.get(scope).put(key, value);
+		} else {
+			attributes.get(scope).put(key, value);
+			throw new AttributeAlreadyDefinedException(key, prevVal, value);
+		}
+		
+	}
 }

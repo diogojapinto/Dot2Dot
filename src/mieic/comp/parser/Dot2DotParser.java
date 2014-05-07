@@ -2,8 +2,11 @@
 package mieic.comp.parser;
 import java.io.*;
 
+import mieic.comp.graph.Graph;
+import mieic.comp.parser.ASTGraph.GraphType;
+
 public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants, Dot2DotParserConstants {/*@bgen(jjtree)*/
-  protected JJTDot2DotParserState jjtree = new JJTDot2DotParserState();public static boolean parse(String args [])
+  protected JJTDot2DotParserState jjtree = new JJTDot2DotParserState();public static Graph parse(String args [])
   {
     Dot2DotParser parser = null;
     if (args.length == 0)
@@ -21,7 +24,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
       catch (java.io.FileNotFoundException e)
       {
         System.out.println("Java Parser Version 1.1:  File " + args [0] + " not found.");
-        return false;
+        return null;
       }
     }
     else
@@ -30,26 +33,20 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
       System.out.println("         java dot2dot < inputfile");
       System.out.println("OR");
       System.out.println("         java dot2dot inputfile");
-      return false;
+      return null;
     }
     try
     {
       SimpleNode root = parser.Start();
       root.dump("");
-      try {
-        root.parseChildren();
-      } catch(SemanticException e) {
-                System.err.println(e);
-                System.exit(1);
-      }
-
-      return true;
+      return new Graph("coiso", GraphType.DIGRAPH, true);
+      /*try      {        return root.parseChildren();      }      catch (SemanticException e)      {        System.err.println(e);        return null;      }*/
     }
     catch (ParseException e)
     {
       System.out.println(e.getMessage());
       System.out.println("Dot2Dot:  Encountered errors during parse.");
-      return false;
+      return null;
     }
   }
 
