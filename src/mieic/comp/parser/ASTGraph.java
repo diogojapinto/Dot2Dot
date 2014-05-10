@@ -63,6 +63,10 @@ public class ASTGraph extends SimpleNode {
 	public static void setGraphType(GraphType type) {
 		ASTGraph.type = type;
 	}
+	
+	public String getGraphId() {
+		return graphId;
+	}
 
 	public Graph parse(Graph parentGraph) throws SemanticException {
 		// TODO: save the attributes accordingly
@@ -88,13 +92,6 @@ public class ASTGraph extends SimpleNode {
 
 							((ASTEdgeStmt) nextNode).parse(graph, v);
 
-						} catch (AttributeAlreadyDefinedException e) {
-							e.printStackTrace();
-						}
-					} else if (nextNode instanceof ASTNodeInfo) {
-						try {
-							Vertex v = new Vertex(
-									((ASTIDStmt) currNode).getId());
 						} catch (AttributeAlreadyDefinedException e) {
 							e.printStackTrace();
 						}
@@ -135,9 +132,15 @@ public class ASTGraph extends SimpleNode {
 						} catch (AttributeAlreadyDefinedException e) {
 							e.printStackTrace();
 						}
+					} else {
+						i--;
 					}
 				}
 			} else if (currNode instanceof ASTAttrStmt) {
+				if (currNode instanceof ASTAttribute) {
+					//TODO
+				}
+			} else if (currNode instanceof ASTAttribute) {
 				
 			} else {
 				throw new SemanticException(
@@ -146,7 +149,6 @@ public class ASTGraph extends SimpleNode {
 		}
 		return graph;
 	}
-
 }
 /*
  * JavaCC - OriginalChecksum=607c7e8727f17690d2a8795c5a405121 (do not edit this

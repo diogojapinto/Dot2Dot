@@ -29,7 +29,36 @@ public class Vertex {
 				return true;
 			}
 		}
-		
+
 		return false;
+	}
+
+	public ArrayList<Edge> getStartEdges() {
+		ArrayList<Edge> retEdges = new ArrayList<>();
+		for (Edge e: edges) {
+			if (e.getOrigin() == this) {
+				retEdges.add(e);
+			}
+		}
+		return retEdges;
+	}
+
+	public ArrayList<Edge> getEndEdges() {
+		ArrayList<Edge> retEdges = new ArrayList<>();
+		for (Edge e: edges) {
+			if (e.getDestination() == this) {
+				retEdges.add(e);
+			}
+		}
+		return retEdges;
+	}
+
+	public ArrayList<Edge> getAllEdges() {
+		return edges;
+	}
+	
+	@Override
+	public String toString() {
+		return NodeIDProvider.getInstance().getVertexName(this);
 	}
 }

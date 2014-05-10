@@ -16,7 +16,7 @@ public class ParsingValidationTest {
 		// to be modified
 		File f = null;
 		for (int i = 1; (f = new File("test_files/test" + i + ".dot")).exists(); i++) {
-			assertNotNull(Dot2DotParser.parse(new String[] { f.getPath() }));
+			assertNotNull(Dot2DotParser.parse(f.getPath()));
 		}
 	}
 }

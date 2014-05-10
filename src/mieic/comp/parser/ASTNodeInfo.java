@@ -4,25 +4,31 @@ package mieic.comp.parser;
 
 import mieic.comp.graph.Vertex;
 
-public
-class ASTNodeInfo extends SimpleNode {
-  public ASTNodeInfo(int id) {
-    super(id);
-  }
+public class ASTNodeInfo extends SimpleNode {
+	public ASTNodeInfo(int id) {
+		super(id);
+	}
 
-  public ASTNodeInfo(Dot2DotParser p, int id) {
-    super(p, id);
-  }
-  
-  public void parse(Vertex vertex) {
-	  for (Node n: children) {
-		  if (n instanceof ASTPort) {
-			  // TODO
-		  } else if (n instanceof ASTAttribute) {
-			  // TODO
-		  }
-	  }
-  }
+	public ASTNodeInfo(Dot2DotParser p, int id) {
+		super(p, id);
+	}
+
+	public void parse(Vertex vertex) {
+		if (children != null) {
+			for (Node n : children) {
+				if (n instanceof ASTPort) {
+					// TODO
+				} else if (n instanceof ASTAttribute) {
+					// TODO
+				}
+			}
+		} else {
+			
+		}
+	}
 
 }
-/* JavaCC - OriginalChecksum=5a04d22a531fbece5f59c685cf79e118 (do not edit this line) */
+/*
+ * JavaCC - OriginalChecksum=5a04d22a531fbece5f59c685cf79e118 (do not edit this
+ * line)
+ */

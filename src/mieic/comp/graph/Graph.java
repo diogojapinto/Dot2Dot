@@ -6,8 +6,10 @@ import java.util.HashMap;
 import mieic.comp.parser.ASTGraph.GraphType;
 
 public class Graph {
-	
-	public enum AttrScope {GRAPH, NODE, EDGE, OTHER};
+
+	public enum AttrScope {
+		GRAPH, NODE, EDGE, OTHER
+	};
 
 	private GraphType type;
 
@@ -16,7 +18,7 @@ public class Graph {
 	private ArrayList<Edge> edges;
 	private String name;
 	private boolean isStrict;
-	
+
 	private HashMap<AttrScope, HashMap<String, String>> attributes;
 
 	public Graph(String name, GraphType type, boolean strictness) {
@@ -57,11 +59,14 @@ public class Graph {
 	 * @return
 	 */
 	public Subgraph addSubgraph(Subgraph subgraph) {
-
-		for (Subgraph graph : subgraphs) {
-			if (graph.getName().equals(subgraph.getName())) {
-				subgraphs.remove(graph);
-				break;
+		if (subgraph.getName() != null) {
+			for (Subgraph graph : subgraphs) {
+				if (graph.getName() != null) {
+					if (graph.getName().equals(subgraph.getName())) {
+						subgraphs.remove(graph);
+						break;
+					}
+				}
 			}
 		}
 
@@ -77,24 +82,26 @@ public class Graph {
 
 		// verify if both vertexes exist
 		if (origin instanceof Vertex
-				&& nodes.containsKey(((Vertex) origin).getName())
+				&& !nodes.containsKey(((Vertex) origin).getName())
 				|| destination instanceof Vertex
-				&& nodes.containsKey(((Vertex) origin).getName())) {
-
+				&& !nodes.containsKey(((Vertex) origin).getName())) {
 			throw new InexistentVertexException();
 
 		} else if (origin instanceof Subgraph) {
 
 			for (Subgraph sg : subgraphs) {
-				if (sg.getName().equals(((Subgraph) origin).getName())) {
+				if (!sg.getName().equals(((Subgraph) origin).getName())) {
 					throw new InexistentVertexException();
 				}
 			}
 
 		} else if (destination instanceof Subgraph) {
 			for (Subgraph sg : subgraphs) {
-				if (sg.getName().equals(((Subgraph) origin).getName())) {
-					throw new InexistentVertexException();
+				if (sg.getName() != null) {
+					if (!sg.getName()
+							.equals(((Subgraph) destination).getName())) {
+						throw new InexistentVertexException();
+					}
 				}
 			}
 		}
@@ -198,7 +205,7 @@ public class Graph {
 	}
 
 	public ArrayList<Vertex> getNodes() {
-		ArrayList<Vertex> allNodes = (ArrayList<Vertex>) nodes.clone();
+		ArrayList<Vertex> allNodes = new ArrayList<Vertex>(nodes.values());
 
 		for (Subgraph sg : subgraphs) {
 			allNodes.addAll(sg.getNodes());
@@ -207,8 +214,9 @@ public class Graph {
 		return allNodes;
 	}
 
-	public void setAttribute(AttrScope scope, String key, String value) throws AttributeAlreadyDefinedException {
-		
+	public void setAttribute(AttrScope scope, String key, String value)
+			throws AttributeAlreadyDefinedException {
+
 		String prevVal = attributes.get(scope).get(key);
 		if (prevVal == null) {
 			attributes.get(scope).put(key, value);
@@ -216,6 +224,6 @@ public class Graph {
 			attributes.get(scope).put(key, value);
 			throw new AttributeAlreadyDefinedException(key, prevVal, value);
 		}
-		
+
 	}
 }

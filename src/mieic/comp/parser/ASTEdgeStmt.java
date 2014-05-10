@@ -50,7 +50,7 @@ public class ASTEdgeStmt extends SimpleNode {
 	public <T> void parse(Graph graph, T source)
 			throws AttributeAlreadyDefinedException, SemanticException {
 
-		if (connector == graph.getType()) {
+		if (connector != graph.getType()) {
 			throw new SemanticException("Invalid connector in edge statement");
 		}
 
@@ -75,11 +75,11 @@ public class ASTEdgeStmt extends SimpleNode {
 			}
 
 		} else if (node instanceof ASTSubgraph) {
-			Subgraph subgraph = new Subgraph(((ASTNodeStmt) node).getNodeId(),
+			Subgraph subgraph = new Subgraph(((ASTSubgraph) node).getGraphId(),
 					graph);
-			
-			((ASTSubgraph)node).parse(graph);
-			
+
+			((ASTSubgraph) node).parse(graph);
+
 			subgraph = graph.addSubgraph(subgraph);
 			edge = new Edge(source, subgraph, connector);
 
@@ -93,16 +93,14 @@ public class ASTEdgeStmt extends SimpleNode {
 		}
 
 		try {
-			try {
-				graph.addEdge(edge);
-			} catch (StrictIncoherenceException e) {
-				throw new SemanticException(
-						"Strict graph does not verify the strictness property");
-			}
+			graph.addEdge(edge);
+		} catch (StrictIncoherenceException e) {
+			throw new SemanticException(
+					"Strict graph does not verify the strictness property");
 		} catch (InexistentVertexException e) {
-			e.printStackTrace();
+			throw new SemanticException(
+					"Edge contains not defined nodes/subgraphs");
 		}
-
 	}
 }
 /*
