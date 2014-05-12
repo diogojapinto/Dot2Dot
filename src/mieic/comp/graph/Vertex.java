@@ -61,4 +61,12 @@ public class Vertex {
 	public String toString() {
 		return NodeIDProvider.getInstance().getVertexName(this);
 	}
+	
+	public void addAttr(String key, String value) throws AttributeAlreadyDefinedException {
+		if (key.equals("label")) {
+			NodeLabelProvider.getInstance().setNodeLabel(this, value);
+		} else {
+			NodeAttributeProvider.getInstance().addAttribute(this, key, value);
+		}
+	}
 }

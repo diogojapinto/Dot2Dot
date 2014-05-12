@@ -47,7 +47,7 @@ public class ASTEdgeStmt extends SimpleNode {
 		}
 	}
 
-	public <T> void parse(Graph graph, T source)
+	public <T> Edge parse(Graph graph, T source)
 			throws AttributeAlreadyDefinedException, SemanticException {
 
 		if (connector != graph.getType()) {
@@ -87,7 +87,14 @@ public class ASTEdgeStmt extends SimpleNode {
 			if (children.length > 1) {
 				Node nextNode = children[1];
 				if (nextNode instanceof ASTEdgeStmt) {
-					((ASTEdgeStmt) nextNode).parse(graph, subgraph);
+					Edge newEdge = ((ASTEdgeStmt) nextNode).parse(graph, subgraph);
+
+					for (Node n: children) {
+						if (n instanceof ASTAttribute) {
+							String[] attr = ((ASTAttribute) n).getAttrParams();
+							newEdge.addAttribute(attr[0], attr[1]);
+						}
+					}
 				}
 			}
 		}
@@ -101,6 +108,8 @@ public class ASTEdgeStmt extends SimpleNode {
 			throw new SemanticException(
 					"Edge contains not defined nodes/subgraphs");
 		}
+		
+		return edge;
 	}
 }
 /*

@@ -110,6 +110,7 @@ public class GraphEditor extends JFrame {
 				File f = new File(fileName);
 				try {
 					f.createNewFile();
+					System.out.println("\n\n\ndkdkkdk\n\n\n");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -121,7 +122,6 @@ public class GraphEditor extends JFrame {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-
 			}
 		});
 		getContentPane().add(button);

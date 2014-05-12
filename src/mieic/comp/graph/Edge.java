@@ -20,8 +20,12 @@ public class Edge<T, U> extends DefaultEdge {
 		EdgeLabelProvider.getInstance().setEdgeLabel(this, label);
 	}
 
-	public void addAttribute(String key, String value) {
-
+	public void addAttribute(String key, String value) throws AttributeAlreadyDefinedException {
+		if (key.equals("label")) {
+			EdgeLabelProvider.getInstance().setEdgeLabel(this, value);
+		} else {
+			EdgeAttributeProvider.getInstance().addAttribute(this, key, value);
+		}
 	}
 
 	public T getOrigin() {

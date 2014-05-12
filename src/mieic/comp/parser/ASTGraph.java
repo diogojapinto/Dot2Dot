@@ -3,6 +3,7 @@
 package mieic.comp.parser;
 
 import mieic.comp.graph.AttributeAlreadyDefinedException;
+import mieic.comp.graph.Edge;
 import mieic.comp.graph.Graph;
 import mieic.comp.graph.Subgraph;
 import mieic.comp.graph.Vertex;
@@ -63,13 +64,12 @@ public class ASTGraph extends SimpleNode {
 	public static void setGraphType(GraphType type) {
 		ASTGraph.type = type;
 	}
-	
+
 	public String getGraphId() {
 		return graphId;
 	}
 
 	public Graph parse(Graph parentGraph) throws SemanticException {
-		// TODO: save the attributes accordingly
 		Graph graph;
 
 		if (parentGraph == null) {
@@ -90,18 +90,30 @@ public class ASTGraph extends SimpleNode {
 
 							v = graph.addVertex(v);
 
-							((ASTEdgeStmt) nextNode).parse(graph, v);
+							Edge edge = ((ASTEdgeStmt) nextNode)
+									.parse(graph, v);
+
+							if (++i < children.length) {
+								for (; i < children.length
+										&& children[i] instanceof ASTAttribute; i++) {
+									String[] attr = ((ASTAttribute) children[i])
+											.getAttrParams();
+									edge.addAttribute(attr[0], attr[1]);
+								}
+							}
+							i--;
 
 						} catch (AttributeAlreadyDefinedException e) {
 							e.printStackTrace();
 						}
 					} else if (nextNode instanceof ASTAssignStmt) {
-						((ASTAssignStmt)nextNode).parse(graph, ((ASTIDStmt)currNode).getId());
+						((ASTAssignStmt) nextNode).parse(graph,
+								((ASTIDStmt) currNode).getId());
 					} else if (nextNode instanceof ASTNodeInfo) {
 						try {
 							Vertex v = new Vertex(
 									((ASTIDStmt) currNode).getId());
-							((ASTNodeInfo)nextNode).parse(v);
+							((ASTNodeInfo) nextNode).parse(v);
 						} catch (AttributeAlreadyDefinedException e) {
 							e.printStackTrace();
 						}
@@ -109,8 +121,7 @@ public class ASTGraph extends SimpleNode {
 				} else {
 					Vertex v;
 					try {
-						v = new Vertex(
-								((ASTIDStmt) currNode).getId());
+						v = new Vertex(((ASTIDStmt) currNode).getId());
 						v = graph.addVertex(v);
 					} catch (AttributeAlreadyDefinedException e) {
 						e.printStackTrace();
@@ -138,10 +149,10 @@ public class ASTGraph extends SimpleNode {
 				}
 			} else if (currNode instanceof ASTAttrStmt) {
 				if (currNode instanceof ASTAttribute) {
-					//TODO
+					// TODO
 				}
 			} else if (currNode instanceof ASTAttribute) {
-				
+
 			} else {
 				throw new SemanticException(
 						"Invalid statement: expecting an ID or subgraph");

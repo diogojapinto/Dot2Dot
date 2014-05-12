@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mieic.comp.parser;
 
+import mieic.comp.graph.AttributeAlreadyDefinedException;
 import mieic.comp.graph.Vertex;
 
 public class ASTNodeInfo extends SimpleNode {
@@ -19,7 +20,12 @@ public class ASTNodeInfo extends SimpleNode {
 				if (n instanceof ASTPort) {
 					// TODO
 				} else if (n instanceof ASTAttribute) {
-					// TODO
+					String[] attr = ((ASTAttribute) n).getAttrParams();
+					try {
+						vertex.addAttr(attr[0], attr[1]);
+					} catch (AttributeAlreadyDefinedException e) {
+						e.printMessage();
+					}
 				}
 			}
 		} else {
