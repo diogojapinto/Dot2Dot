@@ -110,7 +110,7 @@ public class GraphEditor extends JFrame {
 				File f = new File(fileName);
 				try {
 					f.createNewFile();
-					System.out.println("\n\n\ndkdkkdk\n\n\n");
+					System.out.println("\n\nCreated file for export!");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -119,8 +119,10 @@ public class GraphEditor extends JFrame {
 					Writer writer = new PrintWriter(f);
 
 					exporter.export(writer, editGraph);
+					System.out.println("Exported Successfully!");
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
+					System.out.println("Error Exporting!");
 				}
 			}
 		});
