@@ -8,13 +8,15 @@ public class Vertex implements Comparable<Vertex>{
 	private String name;
 	private double dist;
 	private Vertex previous;
-
+	private boolean visited;
+	
 	public Vertex(String name) throws AttributeAlreadyDefinedException {
 		edges = new ArrayList<Edge>();
 		NodeIDProvider.getInstance().setNodeId(this, name);
 		this.name = name;
 		dist =Double.POSITIVE_INFINITY;
 		previous = null;
+		visited = false;
 	}
 
 	public String getName() {
@@ -111,6 +113,14 @@ public class Vertex implements Comparable<Vertex>{
 	@Override
 	public int compareTo(Vertex other) {
 		return Double.compare(dist, other.getDist());
+	}
+	
+	public void setVisited(boolean b){
+		visited = b;
+	}
+	
+	public boolean isVisited() {
+		return visited;
 	}
 
 }

@@ -1,5 +1,8 @@
 package mieic.comp.graph;
 
+import java.util.HashSet;
+import java.util.Map;
+
 import org.jgraph.graph.DefaultEdge;
 
 import mieic.comp.parser.ASTGraph.GraphType;
@@ -27,6 +30,20 @@ public class Edge<T, U> extends DefaultEdge {
 			EdgeAttributeProvider.getInstance().addAttribute(this, key, value);
 		}
 	}
+	
+	public boolean areNodesVisited() {
+		return (((Vertex)origin).isVisited() && ((Vertex)destination).isVisited());
+	}
+	public int getWeight() {
+		String weightStr = EdgeAttributeProvider.getInstance().getComponentAttributes(this).get("weight");
+		if(weightStr != null) {
+			return Integer.parseInt(weightStr);
+		}
+		else {
+			return -1;
+		}
+		 
+	}
 
 	public T getOrigin() {
 		return origin;
@@ -39,5 +56,20 @@ public class Edge<T, U> extends DefaultEdge {
 	@Override
 	public String toString() {
 		return EdgeLabelProvider.getInstance().getEdgeName(this);
+	}
+	
+	public static Edge getMinEdge(HashSet<Edge> edges) {
+		Edge edge = null, tmpEdge = null;
+		int minWeight = Integer.MAX_VALUE;
+		Object[] tmp = edges.toArray();
+		for(int i = 0; i < tmp.length; i++) {
+			tmpEdge = (Edge)tmp[i];
+			if(tmpEdge.getWeight() < minWeight && tmpEdge.areNodesVisited()) {
+				minWeight = tmpEdge.getWeight();
+				edge = tmpEdge;
+			}
+		}
+		
+		return edge;
 	}
 }
