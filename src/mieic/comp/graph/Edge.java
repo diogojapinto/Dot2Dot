@@ -10,13 +10,14 @@ import mieic.comp.parser.ASTGraph.GraphType;
 public class Edge<T, U> extends DefaultEdge {
 	private T origin;
 	private U destination;
-
+	private boolean isUsed;
 	private GraphType edgeType;
 
 	public Edge(T origin, U destination, GraphType type) {
 		this.origin = origin;
 		this.destination = destination;
 		this.edgeType = type;
+		isUsed = false;
 	}
 
 	public void setLabel(String label) throws AttributeAlreadyDefinedException {
@@ -64,7 +65,7 @@ public class Edge<T, U> extends DefaultEdge {
 		Object[] tmp = edges.toArray();
 		for(int i = 0; i < tmp.length; i++) {
 			tmpEdge = (Edge)tmp[i];
-			if(tmpEdge.getWeight() < minWeight && tmpEdge.areNodesVisited()) {
+			if(tmpEdge.getWeight() < minWeight && !tmpEdge.areNodesVisited() && !tmpEdge.isUsed()) {
 				minWeight = tmpEdge.getWeight();
 				edge = tmpEdge;
 			}
@@ -72,4 +73,15 @@ public class Edge<T, U> extends DefaultEdge {
 		
 		return edge;
 	}
+	
+	public void setUsed(boolean b) {
+		isUsed = b;
+		((Vertex)origin).setVisited(true);
+		((Vertex)destination).setVisited(true);
+	}
+	
+	public boolean isUsed() {
+		return isUsed;
+	}
+	
 }

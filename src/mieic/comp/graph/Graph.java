@@ -286,7 +286,7 @@ public class Graph {
 		return path;
 	}
 	
-	public int prim(String startPoint) {
+	public HashSet<Edge> prim(String startPoint) {
 		HashSet<Edge> edges = new HashSet<Edge>();
 		nodes.get(startPoint).setVisited(true);
 		
@@ -297,26 +297,22 @@ public class Graph {
 			for(int i = 0; i < vNodes.length; i++) {
 				Object[] egs = ((Vertex)vNodes[i]).getAllEdges().toArray();
 				for(int j = 0; j < egs.length; j++) {
-					edgeList.add((Edge)egs[i]);
+					if(!((Edge)egs[j]).isUsed()) {
+					edgeList.add((Edge)egs[j]);
+					}
 				}
 			}
 			
 			try {
 				Edge tmp = Edge.getMinEdge(edgeList);
+				tmp.setUsed(true);
 				edges.add(tmp);
 			} catch(Exception e) {
 				
 			}
 		} while(isGraphVisited());
 		
-		Object[] finalEdges = edges.toArray();
-		int totalCost = 0;
-		
-		for(int i = 0; i < finalEdges.length; i++) {
-			totalCost += ((Edge)finalEdges[i]).getWeight();
-		}
-		
-		return totalCost;
+		return edges;
 		
 	}
 
