@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -138,14 +139,84 @@ public class GraphEditor extends JFrame {
 		if (originalGraph.getType() == GraphType.DIGRAPH) {
 			getShortestPathUI();
 		}
-		
+
 		if (originalGraph.getType() == GraphType.GRAPH) {
 			getMinimumSpanUI();
 		}
 	}
-	
+
 	private void getMinimumSpanUI() {
-		
+		final JComboBox<String> source = new JComboBox<>();
+
+		for (Vertex v : originalGraph.getNodes()) {
+			source.addItem(v.getName());
+		}
+
+		getContentPane().add(source);
+
+		JButton minimumSpan = new JButton("Get Minimum span tree");
+
+		minimumSpan.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showMinimumSpanTree((String) source.getSelectedItem());
+			}
+
+		});
+
+		getContentPane().add(minimumSpan);
+	}
+
+	private void showMinimumSpanTree(String source) {
+		System.out.println("ANTES");
+		HashSet<Edge> spanTree = originalGraph.prim(source);
+		System.out.println("DEPOIS: " + spanTree.size());
+		JFrame minimumSpanTree = new JFrame("Minimum Spanning Tree from "
+				+ source);
+		ListenableUndirectedGraph<Vertex, Edge> editPath = null;
+
+		editPath = addComponentsSpan(spanTree);
+
+		JGraph graphSpan = new JGraph(new JGraphModelAdapter<Vertex, Edge>(
+				editPath));
+
+		minimumSpanTree.getContentPane().add(graphSpan);
+
+		graphSpan.setAlignmentX(CENTER_ALIGNMENT);
+		graphSpan.setAlignmentY(CENTER_ALIGNMENT);
+
+		JGraphFacade facadeSpan = new JGraphFacade(graphSpan);
+		new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE, 100, 100)
+				.run(facadeSpan);
+
+		Map nestedMapPath = facadeSpan.createNestedMap(true, true);
+		graphSpan.getGraphLayoutCache().edit(nestedMapPath);
+
+		setLayout(new FlowLayout(FlowLayout.LEFT));
+
+		minimumSpanTree.pack();
+		minimumSpanTree.setVisible(true);
+	}
+
+	private ListenableUndirectedGraph<Vertex, Edge> addComponentsSpan(
+			HashSet<Edge> spanTree) {
+
+		ListenableUndirectedGraph<Vertex, Edge> editable = new ListenableUndirectedGraph<>(
+				Edge.class);
+
+		ArrayList<Vertex> nodes = originalGraph.getNodes();
+
+		for (Vertex v : nodes) {
+			editable.addVertex(v);
+		}
+
+		for (Edge e : spanTree) {
+			editable.addEdge((Vertex) e.getOrigin(),
+					(Vertex) e.getDestination(), e);
+		}
+
+		return editable;
 	}
 
 	private void getShortestPathUI() {
@@ -190,7 +261,7 @@ public class GraphEditor extends JFrame {
 		}
 	}
 
-	private ListenableDirectedGraph<Vertex, Edge> addComponents(
+	private ListenableDirectedGraph<Vertex, Edge> addComponentsShort(
 			ArrayList<Vertex> nodes) {
 
 		ListenableDirectedGraph<Vertex, Edge> editable = new ListenableDirectedGraph<>(
@@ -206,10 +277,9 @@ public class GraphEditor extends JFrame {
 			Vertex v = nodes.get(i);
 			ArrayList<Edge> edges = v.getStartEdges();
 			for (Edge e : edges) {
-				System.out.println("SOURCE: " + e.getOrigin());
-				System.out.println("DESTINATION: " + e.getDestination());
 				if (nodes.contains((Vertex) e.getDestination())
-						&& ((Vertex) e.getDestination()).equals(nodes.get(i + 1))) {
+						&& ((Vertex) e.getDestination()).equals(nodes
+								.get(i + 1))) {
 					double weight = 1;
 					try {
 						if (EdgeAttributeProvider.getInstance()
@@ -223,7 +293,6 @@ public class GraphEditor extends JFrame {
 
 					if (weight < minWeight) {
 						minWeight = weight;
-						System.out.println("Name: " + e.getDestination());
 						edge = e;
 					}
 				}
@@ -245,13 +314,11 @@ public class GraphEditor extends JFrame {
 		ArrayList<Vertex> path = originalGraph.getShortestPathTo((originalGraph
 				.getVertex((String) dest.getSelectedItem())));
 
-		System.out.println(path.toString());
 		JFrame shortPath = new JFrame("Shortest path from "
 				+ source.getSelectedItem() + " to " + dest.getSelectedItem());
-		ListenableDirectedGraph<Vertex, Edge> editPath = new ListenableDirectedGraph<>(
-				Edge.class);
+		ListenableDirectedGraph<Vertex, Edge> editPath = null;
 
-		editPath = addComponents(path);
+		editPath = addComponentsShort(path);
 
 		JGraph graphPath = new JGraph(new JGraphModelAdapter<Vertex, Edge>(
 				editPath));

@@ -1,5 +1,6 @@
 package mieic.comp.graph;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -35,15 +36,14 @@ public class Edge<T, U> extends DefaultEdge {
 	public boolean areNodesVisited() {
 		return (((Vertex)origin).isVisited() && ((Vertex)destination).isVisited());
 	}
-	public int getWeight() {
-		String weightStr = EdgeAttributeProvider.getInstance().getComponentAttributes(this).get("weight");
-		if(weightStr != null) {
-			return Integer.parseInt(weightStr);
+	public double getWeight() {
+		try {
+			String weightStr = EdgeAttributeProvider.getInstance().getComponentAttributes(this).get("weight");
+			return Double.parseDouble(weightStr);
+		} catch (NullPointerException e) {
+			return 1;
 		}
-		else {
-			return -1;
-		}
-		 
+		
 	}
 
 	public T getOrigin() {
@@ -61,11 +61,18 @@ public class Edge<T, U> extends DefaultEdge {
 	
 	public static Edge getMinEdge(HashSet<Edge> edges) {
 		Edge edge = null, tmpEdge = null;
-		int minWeight = Integer.MAX_VALUE;
+		double minWeight = Double.POSITIVE_INFINITY;
 		Object[] tmp = edges.toArray();
 		for(int i = 0; i < tmp.length; i++) {
 			tmpEdge = (Edge)tmp[i];
 			if(tmpEdge.getWeight() < minWeight && !tmpEdge.areNodesVisited() && !tmpEdge.isUsed()) {
+				System.out.println("CENAS");
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				minWeight = tmpEdge.getWeight();
 				edge = tmpEdge;
 			}
@@ -76,7 +83,9 @@ public class Edge<T, U> extends DefaultEdge {
 	
 	public void setUsed(boolean b) {
 		isUsed = b;
+		System.out.println("oriGIN");
 		((Vertex)origin).setVisited(true);
+		System.out.println("DEST");
 		((Vertex)destination).setVisited(true);
 	}
 	

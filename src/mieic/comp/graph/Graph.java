@@ -278,12 +278,15 @@ public class Graph {
 		HashSet<Edge> edges = new HashSet<Edge>();
 		nodes.get(startPoint).setVisited(true);
 		
+		System.out.println("CICLO");
 		do {
 			HashSet<Vertex> visitedNodes = getVisitedNodes();
 			Object[] vNodes = visitedNodes.toArray();
 			HashSet<Edge> edgeList = new HashSet<Edge>();
+			System.out.println("FOR EXTERIOR");
 			for(int i = 0; i < vNodes.length; i++) {
 				Object[] egs = ((Vertex)vNodes[i]).getAllEdges().toArray();
+				System.out.println("FOR INTERIOR");
 				for(int j = 0; j < egs.length; j++) {
 					if(!((Edge)egs[j]).isUsed()) {
 					edgeList.add((Edge)egs[j]);
@@ -291,15 +294,23 @@ public class Graph {
 				}
 			}
 			
+			System.out.println("TRY");
 			try {
 				Edge tmp = Edge.getMinEdge(edgeList);
-				tmp.setUsed(true);
-				edges.add(tmp);
+				if (tmp != null) {
+					System.out.println("NOT NULL");
+					Thread.sleep(2000);
+					tmp.setUsed(true);
+					edges.add(tmp);
+				} else {
+					System.out.println("NULL");
+				}
 			} catch(Exception e) {
-				
+				e.printStackTrace();
 			}
 		} while(isGraphVisited());
 		
+		System.out.println("RETURN");
 		return edges;
 		
 	}
