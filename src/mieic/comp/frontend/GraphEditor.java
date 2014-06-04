@@ -151,41 +151,10 @@ public class GraphEditor extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				originalGraph.computePaths(originalGraph
-						.getVertex((String) source.getSelectedItem()));
-				ArrayList<Vertex> path = originalGraph
-						.getShortestPathTo((originalGraph
-								.getVertex((String) dest.getSelectedItem())));
-
-				System.out.println(path.toString());
-				JFrame shortPath = new JFrame("Shortest path from "
-						+ source.getSelectedItem() + " to "
-						+ dest.getSelectedItem());
-				ListenableDirectedGraph<Vertex, Edge> editPath = new ListenableDirectedGraph<>(
-						Edge.class);
-
-				editPath = addComponents(path);
-
-				JGraph graphPath = new JGraph(
-						new JGraphModelAdapter<Vertex, Edge>(editPath));
-
-				shortPath.getContentPane().add(graphPath);
-
-				graphPath.setAlignmentX(CENTER_ALIGNMENT);
-				graphPath.setAlignmentY(CENTER_ALIGNMENT);
-
-				JGraphFacade facadePath = new JGraphFacade(graphPath);
-				new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE, 100, 100)
-						.run(facadePath);
-
-				Map nestedMapPath = facadePath.createNestedMap(true, true);
-				graphPath.getGraphLayoutCache().edit(nestedMapPath);
-
-				setLayout(new FlowLayout(FlowLayout.LEFT));
-
-				shortPath.pack();
-				shortPath.setVisible(true);
+				showShortestPath(source, dest);
 			}
+
+			
 		});
 
 		getContentPane().add(shortPath);
@@ -227,5 +196,43 @@ public class GraphEditor extends JFrame {
 			}
 		}
 		return editable;
+	}
+	
+	private void showShortestPath(final JComboBox<String> source,
+			final JComboBox<String> dest) {
+		originalGraph.computePaths(originalGraph
+				.getVertex((String) source.getSelectedItem()));
+		ArrayList<Vertex> path = originalGraph
+				.getShortestPathTo((originalGraph
+						.getVertex((String) dest.getSelectedItem())));
+
+		System.out.println(path.toString());
+		JFrame shortPath = new JFrame("Shortest path from "
+				+ source.getSelectedItem() + " to "
+				+ dest.getSelectedItem());
+		ListenableDirectedGraph<Vertex, Edge> editPath = new ListenableDirectedGraph<>(
+				Edge.class);
+
+		editPath = addComponents(path);
+
+		JGraph graphPath = new JGraph(
+				new JGraphModelAdapter<Vertex, Edge>(editPath));
+
+		shortPath.getContentPane().add(graphPath);
+
+		graphPath.setAlignmentX(CENTER_ALIGNMENT);
+		graphPath.setAlignmentY(CENTER_ALIGNMENT);
+
+		JGraphFacade facadePath = new JGraphFacade(graphPath);
+		new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE, 100, 100)
+				.run(facadePath);
+
+		Map nestedMapPath = facadePath.createNestedMap(true, true);
+		graphPath.getGraphLayoutCache().edit(nestedMapPath);
+
+		setLayout(new FlowLayout(FlowLayout.LEFT));
+
+		shortPath.pack();
+		shortPath.setVisible(true);
 	}
 }
