@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
+import javax.xml.crypto.NodeSetData;
 
 import mieic.comp.parser.ASTGraph.GraphType;
 import mieic.comp.parser.Node;
@@ -237,12 +238,10 @@ public class Graph {
 
 	}
 
-	public static void computePaths(Graph g, Vertex source) {
-		for (Vertex v : g.getNodes()) {
-			if (!v.equals(source)) {
+	public void computePaths(Vertex source) {
+		for (Vertex v : getNodes()) {
 				v.setDist(Double.POSITIVE_INFINITY);
 				v.setPrevious(null);
-			}
 		}
 		
 		source.setDist(0);
@@ -278,8 +277,8 @@ public class Graph {
 		}
 	}
 
-	public static List<Vertex> getShortestPathTo(Vertex target) {
-		List<Vertex> path = new ArrayList<Vertex>();
+	public ArrayList<Vertex> getShortestPathTo(Vertex target) {
+		ArrayList<Vertex> path = new ArrayList<Vertex>();
 		for (Vertex vertex = target; vertex != null; vertex = vertex
 				.getPrevious())
 			path.add(vertex);
@@ -340,61 +339,8 @@ public class Graph {
     	
     	return false;
     }
-	public static void main(String[] args)
-			throws AttributeAlreadyDefinedException {
-		Graph g = new Graph("pila", GraphType.DIGRAPH, false);
-		Vertex v0 = new Vertex("v0");
-		Vertex v1 = new Vertex("v1");
-		Vertex v2 = new Vertex("v2");
-		Vertex v3 = new Vertex("v3");
-		g.addVertex(v0);
-		g.addVertex(v1);
-		g.addVertex(v2);
-		g.addVertex(v3);
-
-		GraphType type = GraphType.DIGRAPH;
-
-		Edge e1 = new Edge(v0, v1, type);
-		Edge e2 = new Edge(v0, v2, type);
-		Edge e3 = new Edge(v0, v3, type);
-		Edge e4 = new Edge(v1, v2, type);
-		Edge e5 = new Edge(v1, v3, type);
-		Edge e6 = new Edge(v2, v3, type);
-		Edge e7 = new Edge(v2, v1, type);
-		e1.addAttribute("weight", "5");
-		v0.addEdge(e1);
-		v1.addEdge(e1);
-
-		e2.addAttribute("weight", "10");
-		v0.addEdge(e2);
-		v2.addEdge(e2);
-
-		e3.addAttribute("weight", "8");
-		v0.addEdge(e3);
-		v3.addEdge(e3);
-
-		e4.addAttribute("weight", "3");
-		v1.addEdge(e4);
-		v2.addEdge(e4);
-
-		e5.addAttribute("weight", "2");
-		v1.addEdge(e5);
-		v3.addEdge(e5);
-
-		e6.addAttribute("weight", "11");
-		v2.addEdge(e6);
-		v3.addEdge(e6);
-
-		e7.addAttribute("weight", "6");
-		v2.addEdge(e7);
-		v1.addEdge(e7);
-
-		Vertex[] vertices = { v0, v1, v2, v3 };
-		computePaths(g, v0);
-		for (Vertex v : vertices) {
-			System.out.println("Distance to " + v + ": " + v.getDist());
-			List<Vertex> path = getShortestPathTo(v);
-			System.out.println("Path: " + path);
-		}
+	
+	public Vertex getVertex(String name) {
+		return nodes.get(name);
 	}
 }
