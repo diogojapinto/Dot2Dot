@@ -1,20 +1,8 @@
 package mieic.comp.graph;
 
-import java.io.ObjectInputStream.GetField;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
-import javax.xml.crypto.NodeSetData;
-
 import mieic.comp.parser.ASTGraph.GraphType;
-import mieic.comp.parser.Node;
-import mieic.comp.parser.SimpleNode;
+
+import java.util.*;
 
 public class Graph {
 
