@@ -1,0 +1,31 @@
+digraph Netlist { 
+"1gat" [color="white" fontcolor = blue];
+"branch 3" [color="white" fontcolor = blue];
+"16gat" [image="NAND.gif" color="white" fontcolor = blue];
+"6gat" [color="white" fontcolor = blue];
+"branch 2" [color="white" fontcolor = blue];
+"7gat" [color="white" fontcolor = blue];
+"23gat" [image="NAND.gif" color="white" fontcolor = blue];
+"11gat" [image="NAND.gif" color="white" fontcolor = blue];
+"22gat" [image="NAND.gif" color="white" fontcolor = blue];
+"2gat" [color="white" fontcolor = blue];
+"19gat" [image="NAND.gif" color="white" fontcolor = blue];
+"branch 1" [color="white" fontcolor = blue];
+"10gat" [image="NAND.gif" color="white" fontcolor = blue];
+"3gat" [color="white" fontcolor = blue];
+"3gat" -> "branch 1";
+"2gat" -> "16gat";
+"19gat" -> "23gat";
+"branch 3" -> "22gat";
+"1gat" -> "10gat";
+"branch 2" -> "19gat";
+"6gat" -> "11gat";
+"branch 2" -> "16gat";
+"16gat" -> "branch 3";
+"7gat" -> "19gat";
+"10gat" -> "22gat";
+"11gat" -> "branch 2";
+"branch 3" -> "23gat";
+"branch 1" -> "10gat";
+"branch 1" -> "11gat";
+} 

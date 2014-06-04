@@ -1,0 +1,4 @@
+graph g {
+   A1 -- B1 [weight = x]
+   A2 [shape = myshape]
+}
