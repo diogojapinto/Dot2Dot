@@ -4,10 +4,16 @@ import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 import mieic.comp.parser.ASTGraph.GraphType;
+import mieic.comp.parser.Node;
+import mieic.comp.parser.SimpleNode;
 
 public class Graph {
 
@@ -280,7 +286,60 @@ public class Graph {
 		Collections.reverse(path);
 		return path;
 	}
+	
+	public int prim(String startPoint) {
+		HashSet<Edge> edges = new HashSet<Edge>();
+		nodes.get(startPoint).setVisited(true);
+		
+		do {
+			HashSet<Vertex> visitedNodes = getVisitedNodes();
+			Object[] vNodes = visitedNodes.toArray();
+			HashSet<Edge> edgeList = new HashSet<Edge>();
+			for(int i = 0; i < vNodes.length; i++) {
+				Object[] egs = ((Vertex)vNodes[i]).getAllEdges().toArray();
+				for(int j = 0; j < egs.length; j++) {
+					edgeList.add((Edge)egs[i]);
+				}
+			}
+			
+			try {
+				Edge tmp = Edge.getMinEdge(edgeList);
+				edges.add(tmp);
+			} catch(Exception e) {
+				
+			}
+		} while(isGraphVisited());
+		
+		Object[] finalEdges = edges.toArray();
+		int totalCost = 0;
+		
+		for(int i = 0; i < finalEdges.length; i++) {
+			totalCost += ((Edge)finalEdges[i]).getWeight();
+		}
+		
+		return totalCost;
+		
+	}
 
+	private HashSet<Vertex> getVisitedNodes() {
+		HashSet<Vertex> visitedNodes = new HashSet<Vertex>();
+		for (Map.Entry< String,Vertex > entry : nodes.entrySet()) {
+			if(entry.getValue().isVisited()) {
+				visitedNodes.add(entry.getValue());
+			}
+		}
+		return visitedNodes;
+	}
+
+    public boolean isGraphVisited() {
+    	for (Map.Entry< String,Vertex > entry : nodes.entrySet()) {
+    		if(!entry.getValue().isVisited()) {
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
 	public static void main(String[] args)
 			throws AttributeAlreadyDefinedException {
 		Graph g = new Graph("pila", GraphType.DIGRAPH, false);
