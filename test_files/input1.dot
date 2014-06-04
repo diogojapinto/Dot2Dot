@@ -1,5 +1,5 @@
 graph g {
-  A1 -- B1
+  A1 -- B1[weigth=5]
   A1 -- A2
   B1 -- B2
   A2 -- B2

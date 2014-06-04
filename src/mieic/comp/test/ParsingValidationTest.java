@@ -1,12 +1,11 @@
 package mieic.comp.test;
 
-import static org.junit.Assert.*;
+import mieic.comp.parser.Dot2DotParser;
+import org.junit.Test;
 
 import java.io.File;
 
-import mieic.comp.parser.Dot2DotParser;
-
-import org.junit.Test;
+import static org.junit.Assert.assertNotNull;
 
 public class ParsingValidationTest {
 
@@ -19,4 +18,7 @@ public class ParsingValidationTest {
 			assertNotNull(Dot2DotParser.parse(f.getPath()));
 		}
 	}
+
+
+
 }

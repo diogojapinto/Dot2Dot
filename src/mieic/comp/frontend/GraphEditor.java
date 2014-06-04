@@ -1,47 +1,24 @@
 package mieic.comp.frontend;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-
+import com.jgraph.layout.JGraphFacade;
+import com.jgraph.layout.graph.JGraphSimpleLayout;
+import mieic.comp.graph.*;
+import mieic.comp.parser.ASTGraph.GraphType;
 import org.jgraph.JGraph;
-import org.jgraph.graph.DefaultEdge;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.DOTExporter;
 import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.ListenableDirectedGraph;
 import org.jgrapht.graph.ListenableUndirectedGraph;
 
-import com.jgraph.layout.JGraphFacade;
-import com.jgraph.layout.graph.JGraphSimpleLayout;
-
-import mieic.comp.graph.Edge;
-import mieic.comp.graph.EdgeAttributeProvider;
-import mieic.comp.graph.EdgeLabelProvider;
-import mieic.comp.graph.Graph;
-import mieic.comp.graph.NodeAttributeProvider;
-import mieic.comp.graph.NodeIDProvider;
-import mieic.comp.graph.NodeLabelProvider;
-import mieic.comp.graph.Vertex;
-import mieic.comp.parser.ASTGraph.GraphType;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Map;
 
 public class GraphEditor extends JFrame {
 
@@ -169,9 +146,15 @@ public class GraphEditor extends JFrame {
 	}
 
 	private void showMinimumSpanTree(String source) {
-		System.out.println("ANTES");
 		HashSet<Edge> spanTree = originalGraph.prim(source);
-		System.out.println("DEPOIS: " + spanTree.size());
+
+        Object[] arr = spanTree.toArray();
+
+        for(int i = 0; i < arr.length; i++) {
+            System.out.println(((Edge)arr[i]).getOrigin().toString() + " - > " + ((Edge)arr[i]).getDestination().toString());
+        }
+
+
 		JFrame minimumSpanTree = new JFrame("Minimum Spanning Tree from "
 				+ source);
 		ListenableUndirectedGraph<Vertex, Edge> editPath = null;

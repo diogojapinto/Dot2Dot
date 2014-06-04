@@ -1,12 +1,9 @@
 package mieic.comp.graph;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Map;
-
+import mieic.comp.parser.ASTGraph.GraphType;
 import org.jgraph.graph.DefaultEdge;
 
-import mieic.comp.parser.ASTGraph.GraphType;
+import java.util.HashSet;
 
 public class Edge<T, U> extends DefaultEdge {
 	private T origin;
@@ -66,13 +63,6 @@ public class Edge<T, U> extends DefaultEdge {
 		for(int i = 0; i < tmp.length; i++) {
 			tmpEdge = (Edge)tmp[i];
 			if(tmpEdge.getWeight() < minWeight && !tmpEdge.areNodesVisited() && !tmpEdge.isUsed()) {
-				System.out.println("CENAS");
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				minWeight = tmpEdge.getWeight();
 				edge = tmpEdge;
 			}
@@ -83,10 +73,10 @@ public class Edge<T, U> extends DefaultEdge {
 	
 	public void setUsed(boolean b) {
 		isUsed = b;
-		System.out.println("oriGIN");
-		((Vertex)origin).setVisited(true);
-		System.out.println("DEST");
-		((Vertex)destination).setVisited(true);
+        if(b) {
+            ((Vertex) origin).setVisited(true);
+            ((Vertex) destination).setVisited(true);
+        }
 	}
 	
 	public boolean isUsed() {

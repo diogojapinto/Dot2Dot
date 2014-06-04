@@ -6,7 +6,9 @@ import java.util.*;
 
 public class Graph {
 
-	public enum AttrScope {
+
+
+    public enum AttrScope {
 		GRAPH, NODE, EDGE, OTHER
 	};
 
@@ -275,42 +277,37 @@ public class Graph {
 	}
 	
 	public HashSet<Edge> prim(String startPoint) {
+        resetVisited();
 		HashSet<Edge> edges = new HashSet<Edge>();
 		nodes.get(startPoint).setVisited(true);
-		
-		System.out.println("CICLO");
+
+
 		do {
 			HashSet<Vertex> visitedNodes = getVisitedNodes();
 			Object[] vNodes = visitedNodes.toArray();
 			HashSet<Edge> edgeList = new HashSet<Edge>();
-			System.out.println("FOR EXTERIOR");
 			for(int i = 0; i < vNodes.length; i++) {
-				Object[] egs = ((Vertex)vNodes[i]).getAllEdges().toArray();
-				System.out.println("FOR INTERIOR");
+                Object[] egs = getEdgesFromNode((Vertex) vNodes[i]).toArray();
 				for(int j = 0; j < egs.length; j++) {
 					if(!((Edge)egs[j]).isUsed()) {
 					edgeList.add((Edge)egs[j]);
 					}
 				}
 			}
-			
-			System.out.println("TRY");
+
 			try {
 				Edge tmp = Edge.getMinEdge(edgeList);
 				if (tmp != null) {
-					System.out.println("NOT NULL");
-					Thread.sleep(2000);
 					tmp.setUsed(true);
 					edges.add(tmp);
 				} else {
-					System.out.println("NULL");
 				}
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
 		} while(isGraphVisited());
 		
-		System.out.println("RETURN");
+
 		return edges;
 		
 	}
@@ -338,4 +335,27 @@ public class Graph {
 	public Vertex getVertex(String name) {
 		return nodes.get(name);
 	}
+
+
+    public HashSet<Edge> getEdgesFromNode(Vertex vert) {
+        HashSet<Edge> edgesTmp = new HashSet<Edge>();
+        for(Edge e : edges) {
+            if(e.getOrigin().equals(vert) || e.getDestination().equals(vert) ) {
+                edgesTmp.add(e);
+            }
+        }
+
+        return edgesTmp;
+    }
+
+    public void resetVisited() {
+        for (Map.Entry< String,Vertex > entry : nodes.entrySet()) {
+            entry.getValue().setVisited(false);
+            }
+
+        for(Edge e : edges) {
+            e.setUsed(false);
+        }
+    }
+
 }
