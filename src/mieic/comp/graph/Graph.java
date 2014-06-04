@@ -1,20 +1,8 @@
 package mieic.comp.graph;
 
-import java.io.ObjectInputStream.GetField;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
-import javax.xml.crypto.NodeSetData;
-
 import mieic.comp.parser.ASTGraph.GraphType;
-import mieic.comp.parser.Node;
-import mieic.comp.parser.SimpleNode;
+
+import java.util.*;
 
 public class Graph {
 
@@ -286,7 +274,7 @@ public class Graph {
 		return path;
 	}
 	
-	public int prim(String startPoint) {
+	public HashSet<Edge> prim(String startPoint) {
 		HashSet<Edge> edges = new HashSet<Edge>();
 		nodes.get(startPoint).setVisited(true);
 		
@@ -297,26 +285,22 @@ public class Graph {
 			for(int i = 0; i < vNodes.length; i++) {
 				Object[] egs = ((Vertex)vNodes[i]).getAllEdges().toArray();
 				for(int j = 0; j < egs.length; j++) {
-					edgeList.add((Edge)egs[i]);
+					if(!((Edge)egs[j]).isUsed()) {
+					edgeList.add((Edge)egs[j]);
+					}
 				}
 			}
 			
 			try {
 				Edge tmp = Edge.getMinEdge(edgeList);
+				tmp.setUsed(true);
 				edges.add(tmp);
 			} catch(Exception e) {
 				
 			}
 		} while(isGraphVisited());
 		
-		Object[] finalEdges = edges.toArray();
-		int totalCost = 0;
-		
-		for(int i = 0; i < finalEdges.length; i++) {
-			totalCost += ((Edge)finalEdges[i]).getWeight();
-		}
-		
-		return totalCost;
+		return edges;
 		
 	}
 
