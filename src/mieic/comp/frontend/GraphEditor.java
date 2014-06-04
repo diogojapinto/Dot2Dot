@@ -40,6 +40,7 @@ import mieic.comp.graph.NodeAttributeProvider;
 import mieic.comp.graph.NodeIDProvider;
 import mieic.comp.graph.NodeLabelProvider;
 import mieic.comp.graph.Vertex;
+import mieic.comp.parser.ASTGraph.GraphType;
 
 public class GraphEditor extends JFrame {
 
@@ -134,6 +135,20 @@ public class GraphEditor extends JFrame {
 		});
 		getContentPane().add(button);
 
+		if (originalGraph.getType() == GraphType.DIGRAPH) {
+			getShortestPathUI();
+		}
+		
+		if (originalGraph.getType() == GraphType.GRAPH) {
+			getMinimumSpanUI();
+		}
+	}
+	
+	private void getMinimumSpanUI() {
+		
+	}
+
+	private void getShortestPathUI() {
 		final JComboBox<String> source = new JComboBox<>();
 		final JComboBox<String> dest = new JComboBox<>();
 
@@ -154,7 +169,6 @@ public class GraphEditor extends JFrame {
 				showShortestPath(source, dest);
 			}
 
-			
 		});
 
 		getContentPane().add(shortPath);
@@ -186,37 +200,61 @@ public class GraphEditor extends JFrame {
 			editable.addVertex(v);
 		}
 
-		for (Vertex v : nodes) {
+		Edge edge = null;
+		double minWeight = Double.POSITIVE_INFINITY;
+		for (int i = 0; i < nodes.size(); i++) {
+			Vertex v = nodes.get(i);
 			ArrayList<Edge> edges = v.getStartEdges();
 			for (Edge e : edges) {
-				if (nodes.contains((Vertex)e.getDestination())) {
-					editable.addEdge((Vertex) e.getOrigin(),
-							(Vertex) e.getDestination(), e);
+				System.out.println("SOURCE: " + e.getOrigin());
+				System.out.println("DESTINATION: " + e.getDestination());
+				if (nodes.contains((Vertex) e.getDestination())
+						&& ((Vertex) e.getDestination()).equals(nodes.get(i + 1))) {
+					double weight = 1;
+					try {
+						if (EdgeAttributeProvider.getInstance()
+								.getComponentAttributes(e).get("weight") != null) {
+							weight = Double.parseDouble(EdgeAttributeProvider
+									.getInstance().getComponentAttributes(e)
+									.get("weight"));
+						}
+					} catch (NullPointerException e1) {
+					}
+
+					if (weight < minWeight) {
+						minWeight = weight;
+						System.out.println("Name: " + e.getDestination());
+						edge = e;
+					}
 				}
+			}
+			minWeight = Double.POSITIVE_INFINITY;
+			if (edge != null) {
+				editable.addEdge((Vertex) edge.getOrigin(),
+						(Vertex) edge.getDestination(), edge);
+				edge = null;
 			}
 		}
 		return editable;
 	}
-	
+
 	private void showShortestPath(final JComboBox<String> source,
 			final JComboBox<String> dest) {
-		originalGraph.computePaths(originalGraph
-				.getVertex((String) source.getSelectedItem()));
-		ArrayList<Vertex> path = originalGraph
-				.getShortestPathTo((originalGraph
-						.getVertex((String) dest.getSelectedItem())));
+		originalGraph.computePaths(originalGraph.getVertex((String) source
+				.getSelectedItem()));
+		ArrayList<Vertex> path = originalGraph.getShortestPathTo((originalGraph
+				.getVertex((String) dest.getSelectedItem())));
 
 		System.out.println(path.toString());
 		JFrame shortPath = new JFrame("Shortest path from "
-				+ source.getSelectedItem() + " to "
-				+ dest.getSelectedItem());
+				+ source.getSelectedItem() + " to " + dest.getSelectedItem());
 		ListenableDirectedGraph<Vertex, Edge> editPath = new ListenableDirectedGraph<>(
 				Edge.class);
 
 		editPath = addComponents(path);
 
-		JGraph graphPath = new JGraph(
-				new JGraphModelAdapter<Vertex, Edge>(editPath));
+		JGraph graphPath = new JGraph(new JGraphModelAdapter<Vertex, Edge>(
+				editPath));
 
 		shortPath.getContentPane().add(graphPath);
 
