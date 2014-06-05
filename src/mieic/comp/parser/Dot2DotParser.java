@@ -25,7 +25,7 @@ public class Dot2DotParser/*@bgen(jjtree)*/implements Dot2DotParserTreeConstants
         System.out.println("Java Parser Version 1.1:  File " + arg + " not found.");
         return null;
       }
-    }/*    else    {      System.out.println("Dot2Dot:  Usage is one of:");      System.out.println("         java dot2dot < inputfile");      System.out.println("OR");      System.out.println("         java dot2dot inputfile");      return null;    }*/
+    } /*    else    {      System.out.println("Dot2Dot:  Usage is one of:");      System.out.println("         java dot2dot < inputfile");      System.out.println("OR");      System.out.println("         java dot2dot inputfile");      return null;    }*/
     try
     {
       SimpleNode root = parser.Start();
